@@ -9,6 +9,7 @@ export function Cards() {
   const cards = useAppSelector(selectCards);
   const dispatch = useAppDispatch();
 
+  console.log(cards)
 
   return (
     <div className="cards">

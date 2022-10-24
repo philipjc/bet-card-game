@@ -1,14 +1,17 @@
 import React from 'react';
-import { Cards } from "./features/cards/Cards";
+import {GameView} from "./features/game/GameView";
+
+export const GAME_TITLE = 'Title of the Game';
 
 function App() {
   return (
     <div className="App">
-      <Cards />
-
       <header className="App-header">
-
+        <h1>{GAME_TITLE}</h1>
       </header>
+
+      <GameView />
+
     </div>
   );
 }
