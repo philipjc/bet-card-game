@@ -11,6 +11,7 @@ import ButtonsStyles from "../../app-styled/Buttons.styled";
 const {
   CardsStyled,
   CardStyled,
+  CardActionsStyled,
 } = CardsStyles;
 
 const {
@@ -23,18 +24,17 @@ export function Cards() {
   const { deck: { cards: cardList, deck_id } } = cards;
   const card = cardList[0];
 
-  console.log(card?.images.svg);
-
   return (
     <CardsStyled>
-      <div>
+
+      <CardActionsStyled>
         <PrimaryButton
           className=""
           onClick={() => dispatch(getCardsAsync(deck_id))}
         >
           Play
         </PrimaryButton>
-      </div>
+      </CardActionsStyled>
 
       <CardStyled>
         <img src={card?.images.png}/>
