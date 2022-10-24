@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {RootState} from '../../app/store';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {AppThunk, RootState} from '../../app/store';
 import {fetchCards} from './cardsAPI';
 
 export enum BET_OPTIONS {
@@ -57,7 +57,14 @@ export const cardSlice = createSlice({
   name: 'cards',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
-  reducers: {},
+  reducers: {
+    reducerName: (state, action: PayloadAction<number>) => {
+      // Redux Toolkit allows us to write "mutating" logic in reducers. It
+      // doesn't actually mutate the state because it uses the Immer library,
+      // which detects changes to a "draft state" and produces a brand new
+      // immutable state based off those changes
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -76,6 +83,19 @@ export const cardSlice = createSlice({
 });
 
 // State selector
-export const selectCard = (state: RootState) => state.cards;
+export const selectCards = (state: RootState) => state;
+
+export const { reducerName } = cardSlice.actions;
+
+// Thunks by hand, which may contain both sync and async logic.
+// Here's an example of conditionally dispatching actions based on current state.
+export const thunkName =
+  (amount: number): AppThunk =>
+    (dispatch, getState) => {
+      const currentValue = selectCards(getState());
+      if (currentValue) {
+        dispatch(reducerName(amount));
+      }
+    };
 
 export default cardSlice.reducer;

@@ -2,11 +2,11 @@ import React from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   getCardsAsync,
-  selectCard,
+  selectCards,
 } from './cardsSlice';
 
 export function Cards() {
-  const cards = useAppSelector(selectCard);
+  const cards = useAppSelector(selectCards);
   const dispatch = useAppDispatch();
 
 
