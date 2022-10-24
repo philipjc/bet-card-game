@@ -10,6 +10,7 @@ export interface Score {
 }
 
 export interface GameView {
+  playerName: string;
   gameActive: boolean;
   score: Score;
   bet: string;

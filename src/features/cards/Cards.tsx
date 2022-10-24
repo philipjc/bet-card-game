@@ -6,8 +6,8 @@ import {
 } from './cardsSlice';
 
 export function Cards() {
-  const cards = useAppSelector(selectCards);
   const dispatch = useAppDispatch();
+  const cards = useAppSelector(selectCards);
 
   console.log(cards)
 
