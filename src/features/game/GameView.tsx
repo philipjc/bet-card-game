@@ -1,16 +1,17 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { enterName, selectGameView } from './gameViewSlice';
+import GameViewStyles from "./styled/GameView.styled";
+
+const { GameViewStyled } = GameViewStyles;
 
 export function GameView() {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGameView);
   const { playerName, gameActive } = game;
 
-  console.log(game);
-
   return (
-    <div className="GameView">
+    <GameViewStyled>
 
       {
         !gameActive && (
@@ -34,6 +35,6 @@ export function GameView() {
           </div>
         )
       }
-    </div>
+    </GameViewStyled>
   )
 }
