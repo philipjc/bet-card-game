@@ -5,13 +5,18 @@ import { store } from '../app/store';
 import App from '../App';
 
 import {GAME_TITLE} from "../App";
+import {GV_DATA} from "../features/game/GameView";
 
-test('renders learn react link', () => {
+describe('App tests', () => {
   render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(screen.getByText(GAME_TITLE)).toBeInTheDocument();
+  it('will display game view', async () => {
+    expect(screen.getByText(GAME_TITLE)).toBeInTheDocument();
+    expect(await screen.findByTestId(GV_DATA.name)).toBeInTheDocument();
+  });
+
 });

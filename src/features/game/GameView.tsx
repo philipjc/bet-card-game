@@ -2,8 +2,13 @@ import React from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { enterName, selectGameView } from './gameViewSlice';
 import GameViewStyles from "./styled/GameView.styled";
+import {Cards} from "../cards/Cards";
 
 const { GameViewStyled } = GameViewStyles;
+
+export const GV_DATA = {
+  name: 'GameView',
+}
 
 export function GameView() {
   const dispatch = useAppDispatch();
@@ -11,7 +16,7 @@ export function GameView() {
   const { playerName, gameActive } = game;
 
   return (
-    <GameViewStyled>
+    <GameViewStyled data-testid="GameView">
 
       {
         !gameActive && (
@@ -35,6 +40,9 @@ export function GameView() {
           </div>
         )
       }
+
+      {gameActive && (<Cards />)}
+
     </GameViewStyled>
   )
 }
