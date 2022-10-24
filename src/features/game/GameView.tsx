@@ -1,10 +1,22 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { enterName, selectGameView } from './gameViewSlice';
+import { enterName, hideNameInput,selectGameView } from './gameViewSlice';
 import GameViewStyles from "./styled/GameView.styled";
+import ButtonsStyles from '../../app-styled/Buttons.styled';
+
 import {Cards} from "../cards/Cards";
 
-const { GameViewStyled } = GameViewStyles;
+const {
+  GameViewStyled,
+  NameEntryStyled,
+  NameStyled,
+  InitiateStyled,
+} = GameViewStyles;
+
+const {
+  PrimaryButton,
+} = ButtonsStyles;
+
 
 export const GV_DATA = {
   name: 'GameView',
@@ -13,35 +25,38 @@ export const GV_DATA = {
 export function GameView() {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGameView);
-  const { playerName, gameActive } = game;
+  const { playerName, initiatePlayer } = game;
+
+  const PLAYER_NOT_INITIATED = !initiatePlayer;
+  const HIED_NAME_INPUTS = playerName.length > 1 && !initiatePlayer;
 
   return (
     <GameViewStyled data-testid="GameView">
 
       {
-        !gameActive && (
-          <div className="GameView__name-entry">
+        PLAYER_NOT_INITIATED && (
+          <NameEntryStyled>
             <h2>Please enter your name</h2>
             <input onChange={(e) => dispatch(enterName(e.target.value))} type="text" />
-          </div>
+          </NameEntryStyled>
         )
       }
 
-      <div className="GameView__name">
+      <NameStyled>
         <h3>Welcome, {playerName}</h3>
-      </div>
+      </NameStyled>
 
       {
-        playerName.length > 1 && (
-          <div className="GameView__activate">
-            <button onClick={() => {}}>
+        HIED_NAME_INPUTS && (
+          <InitiateStyled>
+            <PrimaryButton onClick={() => dispatch(hideNameInput())}>
               Let's begin
-            </button>
-          </div>
+            </PrimaryButton>
+          </InitiateStyled>
         )
       }
 
-      {gameActive && (<Cards />)}
+      {initiatePlayer && (<Cards />)}
 
     </GameViewStyled>
   )

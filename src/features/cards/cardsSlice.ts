@@ -7,9 +7,9 @@ import {fetchCards} from './cards-api/cardsAPI';
 // ========
 export const getCardsAsync = createAsyncThunk(
   'cards/fetchCards',
-  async (amount: number) => {
+  async (id: string) => {
     // The value we return becomes the `fulfilled` action payload
-    return await fetchCards(amount);
+    return await fetchCards(id);
   }
 );
 
@@ -30,8 +30,7 @@ export const cardSlice = createSlice({
       })
       .addCase(getCardsAsync.fulfilled, (state, action) => {
         state.fetchingCards = false;
-        console.log(action.payload);
-        state.deck = { ...action.payload };
+        state.deck = { ...state.deck, ...action.payload };
       })
       .addCase(getCardsAsync.rejected, (state) => {
         state.fetchingCards = false;

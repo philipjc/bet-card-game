@@ -2,7 +2,7 @@ import React from 'react';
 import {ThemeProvider} from "styled-components";
 import {mainTheme} from "./themes/main-theme";
 import {GameView} from "./features/game/GameView";
-import AppStyles from "./App.styled";
+import AppStyles from "./app-styled/App.styled";
 
 const { AppStyled, AppHeader } = AppStyles;
 

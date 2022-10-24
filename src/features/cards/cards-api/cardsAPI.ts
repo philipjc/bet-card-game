@@ -1,7 +1,11 @@
 
-export function fetchCards(amount = 12) {
+export function fetchCards(id = '') {
+  const url = id.length > 0
+    ? `https://deckofcardsapi.com/api/deck/${id}/draw/?count=1`
+    : 'https://deckofcardsapi.com/api/deck/new/draw/?count=1';
+
   return new Promise<{ data: {} }>((resolve) => {
-    fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1', {
+    fetch(url, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',

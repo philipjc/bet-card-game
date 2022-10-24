@@ -1,7 +1,15 @@
 
+interface Images {
+  svg: string;
+  png: string;
+}
+
 export interface Card {
-  id: string;
-  remaining: number;
+  images: Images;
+  code: string;
+  image: string;
+  value: string;
+  suit: string
 }
 
 export interface Deck {
@@ -12,6 +20,6 @@ export interface Deck {
 }
 
 export interface CardsState {
-  deck?: Deck | {};
+  deck: Deck;
   fetchingCards: boolean;
 }

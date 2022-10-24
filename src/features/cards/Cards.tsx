@@ -5,20 +5,41 @@ import {
   selectCards,
 } from './cardsSlice';
 
+import CardsStyles from "./styled/Cards.styled";
+import ButtonsStyles from "../../app-styled/Buttons.styled";
+
+const {
+  CardsStyled,
+  CardStyled,
+} = CardsStyles;
+
+const {
+  PrimaryButton,
+} = ButtonsStyles;
+
 export function Cards() {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(selectCards);
+  const { deck: { cards: cardList, deck_id } } = cards;
+  const card = cardList[0];
+
+  console.log(card?.images.svg);
 
   return (
-    <div className="cards">
-      <h2>Cards</h2>
+    <CardsStyled>
+      <div>
+        <PrimaryButton
+          className=""
+          onClick={() => dispatch(getCardsAsync(deck_id))}
+        >
+          Play
+        </PrimaryButton>
+      </div>
 
-      <button
-        className=""
-        onClick={() => dispatch(getCardsAsync(12))}
-      >
-        Add Async
-      </button>
-    </div>
+      <CardStyled>
+        <img src={card?.images.png}/>
+      </CardStyled>
+
+    </CardsStyled>
   )
 }
