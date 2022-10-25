@@ -1,4 +1,6 @@
 import gameViewReducer, {
+  enterName,
+  hideNameInput,
 } from '../../game/gameViewSlice';
 
 import {GameView} from "../gameView.interfaces";
@@ -15,36 +17,24 @@ describe('game view reducer', () => {
   };
 
   it('should handle initial state', () => {
-    expect(gameViewReducer(undefined, { type: 'unknown' })).toEqual({
+    const action = { type: 'unknown' };
+    expect(gameViewReducer(undefined, action)).toEqual({
       ...initialState,
     });
   });
 
   it('will handle entering a name', () => {
-    expect(gameViewReducer({
-      bet: '',
-      initiatePlayer: false,
-      playerName: 'Geralt',
-      score: {
-        lost: 0,
-        won: 0,
-      }}, { type: 'enterName' })).toEqual({
+    const action = { type: enterName, payload: 'Geralt' };
+    expect(gameViewReducer({...initialState}, action)).toEqual({
       ...initialState,
-      playerName: 'Geralt',
+      playerName: action.payload,
     });
   });
 
   it('will handle hide name inputs', () => {
-    expect(gameViewReducer({
-      bet: '',
-      initiatePlayer: false,
-      playerName: 'Geralt',
-      score: {
-        lost: 0,
-        won: 0,
-      }}, { type: 'hideNameInput' })).toEqual({
+    const action = { type: hideNameInput };
+    expect(gameViewReducer({...initialState}, action)).toEqual({
       ...initialState,
-      playerName: 'Geralt',
       initiatePlayer: true,
     });
   });

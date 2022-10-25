@@ -1,6 +1,8 @@
 import React from "react";
 import ButtonsStyles from "../../../../app-styled/Buttons.styled";
 import PlayerActionsStyles from "./PlayerActions.styled";
+import {BET_OPTIONS} from "../../gameView.interfaces";
+import { enterName, hideNameInput,selectGameView } from '../../gameViewSlice';
 
 const { PrimaryButton } = ButtonsStyles;
 const { PlayerActionsStyled } = PlayerActionsStyles;

@@ -20,6 +20,10 @@ export const gameViewSlice = createSlice({
     hideNameInput: state => {
       state.initiatePlayer = true;
     },
+    placeBet: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      state.bet = payload;
+    },
     reducerName: (state, action: PayloadAction<number>) => {},
   },
 });
@@ -30,7 +34,7 @@ export const selectGameView = (state: RootState) => state.gameView;
 
 // Actions
 // =======
-export const { reducerName, enterName, hideNameInput } = gameViewSlice.actions;
+export const { reducerName, enterName, hideNameInput, placeBet } = gameViewSlice.actions;
 
 // Thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
