@@ -8,8 +8,10 @@ export const mainTheme = {
     text: '#24262f',
   },
   spacing: {
-    small: '8px',
-    medium: '16px',
-    large: '32px',
+    xSmall: '.2em',
+    small: '.5em',
+    medium: '1em',
+    large: '2em',
+    xLarge: '2.5em'
   }
 }

@@ -43,7 +43,7 @@ export function Cards() {
       {
         GAME_ACTIVE && (
           <CardStyled>
-            <img src={currentCard?.images.png}/>
+            <img src={currentCard?.images.png} alt="A playing card"/>
           </CardStyled>
         )
       }

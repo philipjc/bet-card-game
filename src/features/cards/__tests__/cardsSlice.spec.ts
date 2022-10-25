@@ -1,18 +1,17 @@
 import cardsReducer, {
-  CardsState,
-
 } from '../../cards/cardsSlice';
+
+import {CardsState} from "../cards.interfaces";
 
 describe('cards reducer', () => {
   const initialState: CardsState = {
-    gameActive: false,
     fetchingCards: false,
-    deck: {},
-    score: {
-      won: 0,
-      lost: 0
-    },
-    bet: '',
+    deck: {
+      deck_id: '',
+      remaining: 0,
+      success: false,
+      cards: [],
+    }
   };
 
   it('should handle initial state', () => {

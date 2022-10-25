@@ -1,7 +1,9 @@
 import React from "react";
 import ButtonsStyles from "../../../../app-styled/Buttons.styled";
+import PlayerActionsStyles from "./PlayerActions.styled";
 
 const { PrimaryButton } = ButtonsStyles;
+const { PlayerActionsStyled } = PlayerActionsStyles;
 
 export const PA_DATA = {
   name: 'PlayerActions',
@@ -11,10 +13,10 @@ export const PA_DATA = {
 export function PlayerActions() {
 
   return (
-    <div data-testid={PA_DATA.name}>
+    <PlayerActionsStyled data-testid={PA_DATA.name}>
       <h4>{PA_DATA.heading}</h4>
 
-      <div>
+      <div className="buttons">
         <PrimaryButton onClick={() => { console.log('lower') }}>
           Lower
         </PrimaryButton>
@@ -22,6 +24,6 @@ export function PlayerActions() {
           Higher
         </PrimaryButton>
       </div>
-    </div>
+    </PlayerActionsStyled>
   )
 }
