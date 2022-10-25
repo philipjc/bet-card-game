@@ -1,9 +1,8 @@
 import {GameView} from "./gameView.interfaces";
 
 export const initialState: GameView = {
-  playerName: '',
+  playerName: 'Geralt',
   initiatePlayer: false,
-  gameActive: false,
   score: {
     won: 0,
     lost: 0

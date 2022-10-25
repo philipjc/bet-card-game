@@ -2,7 +2,7 @@
 export function fetchCards(id = '') {
   const url = id.length > 0
     ? `https://deckofcardsapi.com/api/deck/${id}/draw/?count=1`
-    : 'https://deckofcardsapi.com/api/deck/new/draw/?count=1';
+    : 'https://deckofcardsapi.com/api/deck/new/draw/?count=12';
 
   return new Promise<{ data: {} }>((resolve) => {
     fetch(url, {

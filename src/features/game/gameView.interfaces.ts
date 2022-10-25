@@ -12,7 +12,6 @@ export interface Score {
 export interface GameView {
   playerName: string;
   initiatePlayer: boolean;
-  gameActive: boolean;
   score: Score;
   bet: string;
 }

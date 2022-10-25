@@ -41,6 +41,7 @@ export const cardSlice = createSlice({
 // State selector
 // ==============
 export const selectCards = (state: RootState) => state.cards;
+export const selectCardDeck = (state: RootState) => state.cards.deck.cards;
 
 // Actions
 // =======

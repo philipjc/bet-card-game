@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   getCardsAsync,
   selectCards,
+  selectCardDeck,
 } from './cardsSlice';
 
 import CardsStyles from "./styled/Cards.styled";
@@ -21,8 +22,11 @@ const {
 export function Cards() {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(selectCards);
-  const { deck: { cards: cardList, deck_id } } = cards;
-  const card = cardList[0];
+  const cardDeck = useAppSelector(selectCardDeck);
+
+  const { deck: { deck_id } } = cards;
+  const currentCard = cardDeck[0];
+  const GAME_ACTIVE = cardDeck.length > 0;
 
   return (
     <CardsStyled>
@@ -36,9 +40,13 @@ export function Cards() {
         </PrimaryButton>
       </CardActionsStyled>
 
-      <CardStyled>
-        <img src={card?.images.png}/>
-      </CardStyled>
+      {
+        GAME_ACTIVE && (
+          <CardStyled>
+            <img src={currentCard?.images.png}/>
+          </CardStyled>
+        )
+      }
 
     </CardsStyled>
   )
