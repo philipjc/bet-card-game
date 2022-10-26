@@ -6,8 +6,10 @@ export const store = configureStore({
   reducer: {
     gameView: gameViewReducer,
     cards: cardReducer,
-    game: combineReducers({gameView: gameViewReducer,
-      cards: cardReducer,})
+    game: combineReducers({
+      gameView: gameViewReducer,
+      cards: cardReducer,
+    })
   },
 });
 

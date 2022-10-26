@@ -1,9 +1,16 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk, RootState} from '../../app/store';
 import {initialState} from "./gameView.state";
+import {Card} from "../cards/cards.interfaces";
 
-async function placeAsyncBet(bet: string) {
-  return new Promise<string>((resolve) => {
+export interface Bet {
+  guess: string;
+  currentCard: Card;
+  win?: boolean;
+}
+
+async function placeAsyncBet(bet: Bet) {
+  return new Promise<Bet>((resolve) => {
     return setTimeout(() => {
       resolve(bet);
     }, 5000);
@@ -15,7 +22,7 @@ async function placeAsyncBet(bet: string) {
 // ========
 export const placeBetThunk = createAsyncThunk(
   'game-view/placeBet',
-  async (bet: string) => {
+  async (bet: Bet) => {
     // The value we return becomes the `fulfilled` action payload
     return await placeAsyncBet(bet);
   }
@@ -48,9 +55,12 @@ export const gameViewSlice = createSlice({
       .addCase(placeBetThunk.pending, state => {
         state.bet.loading = true;
       })
-      .addCase(placeBetThunk.fulfilled, (state, action) => {
+      .addCase(placeBetThunk.fulfilled, (state, action: PayloadAction<Bet>) => {
         state.bet.loading = false;
-        state.bet.guess = action.payload;
+        state.turn = state.turn += 1;
+        // state.bet.guess = action.payload.guess;
+        console.log(action.payload)
+        console.log('HERE: ', state);
       })
       .addCase(placeBetThunk.rejected, state => {
         state.bet.loading = false;

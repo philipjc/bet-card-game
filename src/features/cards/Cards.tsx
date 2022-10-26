@@ -5,6 +5,8 @@ import {
   getCardsAsync,
 } from './cardsSlice';
 
+import {placeBetThunk} from "../game/gameViewSlice";
+
 import CardsStyles from "./styled/Cards.styled";
 import ButtonsStyles from "../../app-styled/Buttons.styled";
 import {selectGameState} from "../game/gameViewSlice";
@@ -41,6 +43,12 @@ export function Cards() {
         >
           Play
         </PrimaryButton>
+        <PrimaryButton
+          className=""
+          onClick={() => dispatch(placeBetThunk({ guess, currentCard: currentCard[0] }))}
+        >
+          Go
+        </PrimaryButton>
       </CardActionsStyled>
 
       <GuessStyled>{guess}</GuessStyled>
@@ -56,7 +64,7 @@ export function Cards() {
       }
 
       {
-        GAME_ACTIVE && (
+        GAME_ACTIVE && !bet.loading && (
           <CardStyled>
             <img src={currentCard[0]?.images.png} alt="A playing card"/>
           </CardStyled>

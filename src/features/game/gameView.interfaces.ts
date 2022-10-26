@@ -13,6 +13,7 @@ export interface GameView {
   playerName: string;
   initiatePlayer: boolean;
   score: Score;
+  turn: number;
   bet: {
     loading: boolean;
     guess: string;
