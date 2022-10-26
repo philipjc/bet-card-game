@@ -1,9 +1,8 @@
 import React from "react";
+import { FallingLines } from 'react-loader-spinner'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   getCardsAsync,
-  selectCards,
-  selectCardDeck,
 } from './cardsSlice';
 
 import CardsStyles from "./styled/Cards.styled";
@@ -24,8 +23,10 @@ export function Cards() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
 
-  const { gameView: game, cards: { currentCard, deck: { cards, deck_id }} } = gameState;
-
+  const { gameView: game, cards: cardsList } = gameState;
+  const { currentCard, deck: { cards, deck_id }} = cardsList;
+  const { bet } = game;
+  const { loading, guess } = bet;
 
   const GAME_ACTIVE = cards.length > 0;
 
@@ -40,6 +41,13 @@ export function Cards() {
           Play
         </PrimaryButton>
       </CardActionsStyled>
+
+      {loading ? (
+        <FallingLines
+          color="#ecfb77"
+          width="100"
+          visible={true}
+        />) : (<h4>{guess}</h4>)}
 
       {
         GAME_ACTIVE && (

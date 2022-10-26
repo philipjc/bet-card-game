@@ -46,41 +46,46 @@ export function GameView() {
   return (
     <GameViewStyled data-testid={GV_DATA.name}>
 
-      {
-        HIDE_NAME_INPUTS && (
-          <NameEntryStyled>
-            <h2>{GV_DATA.player.heading}</h2>
-            <input onChange={(e) => dispatch(enterName(e.target.value))} type="text" />
-          </NameEntryStyled>
-        )
-      }
+      <div className="UI">
+        <div className="UI__header"></div>
 
-      <NameStyled>
-        <h3>{`${GV_DATA.player.message} ${playerName}`}</h3>
-      </NameStyled>
+        {
+          HIDE_NAME_INPUTS && (
+            <NameEntryStyled>
+              <h2>{GV_DATA.player.heading}</h2>
+              <input onChange={(e) => dispatch(enterName(e.target.value))} type="text" />
+            </NameEntryStyled>
+          )
+        }
 
-      {
-        HIDE_NAME_INPUTS && (
-          <InitiateStyled>
-            <PrimaryButton onClick={() => dispatch(hideNameInput())}>
-              {GV_DATA.initiate.button}
-            </PrimaryButton>
-          </InitiateStyled>
-        )
-      }
+        <NameStyled>
+          <h3>{`${GV_DATA.player.message} ${playerName}`}</h3>
+        </NameStyled>
 
-      {
-        PLAYER_INITIATED && (
-          <>
-            <Cards />
-            {
-              CARDS_LOADED && (
-                <PlayerActions />
-              )
-            }
-          </>
-        )
-      }
+        {
+          HIDE_NAME_INPUTS && (
+            <InitiateStyled>
+              <PrimaryButton onClick={() => dispatch(hideNameInput())}>
+                {GV_DATA.initiate.button}
+              </PrimaryButton>
+            </InitiateStyled>
+          )
+        }
+
+        {
+          PLAYER_INITIATED && (
+            <>
+              <Cards />
+              {
+                CARDS_LOADED && (
+                  <PlayerActions />
+                )
+              }
+            </>
+          )
+        }
+
+      </div>
 
     </GameViewStyled>
   )
