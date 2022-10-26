@@ -6,9 +6,21 @@ import {Bet} from "../game/interfaces/gameView.interfaces";
 
 async function placeAsyncBet(bet: Bet) {
   return new Promise<Bet>((resolve) => {
+    const { currentCard, nextCard } = bet;
+    const { value: currentCardValue } = currentCard;
+    const { value: nextCardValue } = nextCard;
+
+    const IS_HIGH_CARD =
+      currentCardValue === 'ACE' ||
+      currentCardValue === 'KING' ||
+      currentCardValue === 'JACK' ||
+      currentCardValue === 'QUEEN';
+
+    const NEXT_CARD_LOWER = JSON.stringify(nextCardValue) === JSON.stringify(IS_HIGH_CARD);
+
     return setTimeout(() => {
-      resolve(bet);
-    }, 5000);
+      resolve({...bet, win: NEXT_CARD_LOWER});
+    }, 1000);
   });
 }
 
@@ -46,7 +58,6 @@ export const gameViewSlice = createSlice({
     },
     placeBet: (state, action: PayloadAction<string>) => {
       const { payload } = action;
-      console.log(payload)
       state.bet.guess = payload;
     },
     reducerName: (state, action: PayloadAction<number>) => {},
@@ -60,9 +71,10 @@ export const gameViewSlice = createSlice({
         state.cardsView.fetchingCards = true;
       })
       .addCase(getCardsAsync.fulfilled, (state, action) => {
-        state.cardsView.fetchingCards = false;
         state.cardsView.deck = { ...state.cardsView.deck, ...action.payload };
-        state.cardsView.currentCard = action.payload.cards.slice(0, 1);
+        state.cardsView.currentCard = [action.payload.cards[state.turn]];
+        state.cardsView.nextCard = [action.payload.cards[state.turn + 1]];
+        state.cardsView.fetchingCards = false;
       })
       .addCase(getCardsAsync.rejected, (state) => {
         state.cardsView.fetchingCards = false;
@@ -73,8 +85,21 @@ export const gameViewSlice = createSlice({
         state.bet.loading = true;
       })
       .addCase(placeBetThunk.fulfilled, (state, action: PayloadAction<Bet>) => {
+        const { payload } = action;
+        const newTurn = state.turn += 1;
+        const newCurrentCard = newTurn;
+        const newNextCard = (newTurn + 1);
+
+        state.turn = newTurn;
+        state.cardsView.currentCard = [state.cardsView.deck.cards[newCurrentCard]];
+        state.cardsView.nextCard = [state.cardsView.deck.cards[newNextCard]];
+        if (payload.win) {
+          state.score.won = state.score.won += 1;
+        } else {
+          state.score.lost = state.score.lost += 1;
+        }
         state.bet.loading = false;
-        state.turn = state.turn += 1;
+        console.log('END BET: ', Number(payload.win));
       })
       .addCase(placeBetThunk.rejected, state => {
         state.bet.loading = false;

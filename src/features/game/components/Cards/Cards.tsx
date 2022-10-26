@@ -29,30 +29,29 @@ export function Cards() {
   const cardState = useAppSelector(selectCardView);
 
   const { bet: { loading, guess } } = gameState;
-  const { currentCard, deck: { cards, deck_id }, fetchingCards } = cardState;
+  const { currentCard, nextCard, deck: { cards, deck_id }, fetchingCards } = cardState;
 
   const GAME_ACTIVE = cards.length > 0;
   const LOADING = loading || fetchingCards;
+  const PLAYER_GUESS = guess ? `You bet ${guess}ER...` : null;
 
   return (
     <CardsStyled>
 
       <CardActionsStyled>
+
         <PrimaryButton
           className=""
-          onClick={() => dispatch(getCardsAsync(deck_id))}
+          onClick={() =>
+            GAME_ACTIVE
+              ? dispatch(placeBetThunk({ guess, currentCard: currentCard[0], nextCard: nextCard[0] }))
+              : dispatch(getCardsAsync(deck_id))}
         >
-          Play
-        </PrimaryButton>
-        <PrimaryButton
-          className=""
-          onClick={() => dispatch(placeBetThunk({ guess, currentCard: currentCard[0] }))}
-        >
-          Go
+          { GAME_ACTIVE ? 'Go' : 'Play' }
         </PrimaryButton>
       </CardActionsStyled>
 
-      <GuessStyled>{guess}</GuessStyled>
+      <GuessStyled>{PLAYER_GUESS}</GuessStyled>
 
       {
         LOADING && (

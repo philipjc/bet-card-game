@@ -34,12 +34,14 @@ export function GameView() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
 
-  const { playerName, initiatePlayer, cardsView: { deck: { cards } }} = gameState;
+  const { playerName, initiatePlayer, score: { won, lost }, cardsView: { deck: { cards } }} = gameState;
 
-  const CARDS_LOADED = cards.length > 0;
+  const GAME_ACTIVE = cards.length > 0;
   const PLAYER_INITIATED = initiatePlayer;
   const PLAYER_NOT_INITIATED = !initiatePlayer;
   const HIDE_NAME_INPUTS = playerName?.length > 1 && PLAYER_NOT_INITIATED;
+  const PLAYER_SCORE_WIN = `Score: Won: ${won}`;
+  const PLAYER_SCORE_LOST = `Score: Lost: ${lost}`;
 
   return (
     <GameViewStyled data-testid={GV_DATA.name}>
@@ -58,6 +60,8 @@ export function GameView() {
 
         <NameStyled>
           <h3>{`${GV_DATA.player.message} ${playerName}`}</h3>
+          {GAME_ACTIVE && <h3>{PLAYER_SCORE_WIN}</h3>}
+          {GAME_ACTIVE && <h3>{PLAYER_SCORE_LOST}</h3>}
         </NameStyled>
 
         {
@@ -75,7 +79,7 @@ export function GameView() {
             <>
               <Cards />
               {
-                CARDS_LOADED && (
+                GAME_ACTIVE && (
                   <PlayerActions />
                 )
               }

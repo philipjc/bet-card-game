@@ -3,6 +3,7 @@ import {GameView} from "../interfaces/gameView.interfaces";
 const gameViewState = {
   fetchingCards: false,
   currentCard: [],
+  nextCard: [],
   deck: {
     cards: [],
     deck_id: '',
@@ -16,7 +17,7 @@ const scoreState = {
   lost: 0
 };
 
-const betState = {
+const betViewState = {
   loading: false,
   guess: '',
 };
@@ -27,5 +28,5 @@ export const initialState: GameView = {
   turn: 0,
   cardsView: gameViewState,
   score: scoreState,
-  bet: betState,
+  bet: betViewState,
 }

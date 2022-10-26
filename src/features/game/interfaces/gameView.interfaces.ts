@@ -7,6 +7,7 @@ export enum BET_OPTIONS {
 export interface Bet {
   guess: string;
   currentCard: Card;
+  nextCard: Card;
   win?: boolean;
 }
 
@@ -30,6 +31,7 @@ export interface BetView {
 export interface CardsView {
   fetchingCards: boolean;
   currentCard: Array<Card>;
+  nextCard: Array<Card>;
   deck: Deck;
 }
 

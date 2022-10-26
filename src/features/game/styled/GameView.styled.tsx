@@ -16,9 +16,8 @@ const NameEntryStyled = styled.div`
 `;
 
 const NameStyled = styled.div`
-  h3 {
-    
-  }
+  display: flex;
+  justify-content: space-evenly;
 `;
 
 const InitiateStyled = styled.div`
