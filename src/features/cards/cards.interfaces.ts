@@ -20,6 +20,7 @@ export interface Deck {
 }
 
 export interface CardsState {
-  deck: Deck;
   fetchingCards: boolean;
+  currentCard: Array<Card>;
+  deck: Deck;
 }

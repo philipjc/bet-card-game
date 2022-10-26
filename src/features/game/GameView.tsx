@@ -1,7 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { enterName, hideNameInput,selectGameView } from './gameViewSlice';
-import {selectCardDeck} from '../cards/cardsSlice';
+import { enterName, hideNameInput, selectGameState } from './gameViewSlice';
 import GameViewStyles from "./styled/GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
@@ -33,8 +32,10 @@ export const GV_DATA = {
 
 export function GameView() {
   const dispatch = useAppDispatch();
-  const game = useAppSelector(selectGameView);
-  const cards = useAppSelector(selectCardDeck);
+  const gameState = useAppSelector(selectGameState);
+
+  const { gameView: game, cards: { currentCard, deck: { cards }} } = gameState;
+
   const { playerName, initiatePlayer } = game;
 
   const CARDS_LOADED = cards.length > 0;

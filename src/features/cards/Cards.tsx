@@ -8,6 +8,7 @@ import {
 
 import CardsStyles from "./styled/Cards.styled";
 import ButtonsStyles from "../../app-styled/Buttons.styled";
+import {selectGameState} from "../game/gameViewSlice";
 
 const {
   CardsStyled,
@@ -21,12 +22,12 @@ const {
 
 export function Cards() {
   const dispatch = useAppDispatch();
-  const cards = useAppSelector(selectCards);
-  const cardDeck = useAppSelector(selectCardDeck);
+  const gameState = useAppSelector(selectGameState);
 
-  const { deck: { deck_id } } = cards;
-  const currentCard = cardDeck[0];
-  const GAME_ACTIVE = cardDeck.length > 0;
+  const { gameView: game, cards: { currentCard, deck: { cards, deck_id }} } = gameState;
+
+
+  const GAME_ACTIVE = cards.length > 0;
 
   return (
     <CardsStyled>
@@ -43,7 +44,7 @@ export function Cards() {
       {
         GAME_ACTIVE && (
           <CardStyled>
-            <img src={currentCard?.images.png} alt="A playing card"/>
+            <img src={currentCard[0]?.images.png} alt="A playing card"/>
           </CardStyled>
         )
       }

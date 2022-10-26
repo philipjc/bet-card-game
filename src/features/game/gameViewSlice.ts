@@ -31,6 +31,7 @@ export const gameViewSlice = createSlice({
 // State selector
 // ==============
 export const selectGameView = (state: RootState) => state.gameView;
+export const selectGameState = (state: RootState) => state;
 
 // Actions
 // =======
@@ -41,6 +42,7 @@ export const { reducerName, enterName, hideNameInput, placeBet } = gameViewSlice
 export const thunkName =
   (amount: number): AppThunk =>
     (dispatch, getState) => {
+      console.log(getState())
       const currentValue = selectGameView(getState());
       if (currentValue) {
         dispatch(reducerName(amount));

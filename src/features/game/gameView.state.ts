@@ -1,7 +1,7 @@
 import {GameView} from "./gameView.interfaces";
 
 export const initialState: GameView = {
-  playerName: '',
+  playerName: 'Geralt',
   initiatePlayer: false,
   score: {
     won: 0,

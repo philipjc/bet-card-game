@@ -31,6 +31,7 @@ export const cardSlice = createSlice({
       .addCase(getCardsAsync.fulfilled, (state, action) => {
         state.fetchingCards = false;
         state.deck = { ...state.deck, ...action.payload };
+        state.currentCard = action.payload.cards.slice(0, 1);
       })
       .addCase(getCardsAsync.rejected, (state) => {
         state.fetchingCards = false;

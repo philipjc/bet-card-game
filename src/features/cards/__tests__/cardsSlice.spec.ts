@@ -5,6 +5,7 @@ import {CardsState} from "../cards.interfaces";
 
 describe('cards reducer', () => {
   const initialState: CardsState = {
+    currentCard: [],
     fetchingCards: false,
     deck: {
       deck_id: '',
