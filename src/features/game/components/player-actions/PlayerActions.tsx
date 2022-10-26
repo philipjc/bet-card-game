@@ -21,7 +21,7 @@ export function PlayerActions() {
       <h4>{PA_DATA.heading}</h4>
 
       <div className="buttons">
-        <PrimaryButton onClick={() => dispatch(placeBetThunk(BET_OPTIONS.low))}>
+        <PrimaryButton onClick={() => dispatch(placeBet(BET_OPTIONS.low))}>
           Lower
         </PrimaryButton>
         <PrimaryButton onClick={() => dispatch(placeBet(BET_OPTIONS.high))}>

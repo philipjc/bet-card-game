@@ -4,7 +4,7 @@ const PlayerActionsStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: ${props => props.theme.spacing.large};
+  margin-top: ${props => props.theme.spacing.medium};
   
   h4 {
     margin-bottom: ${props => props.theme.spacing.medium};

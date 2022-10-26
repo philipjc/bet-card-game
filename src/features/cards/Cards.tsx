@@ -13,6 +13,7 @@ const {
   CardsStyled,
   CardStyled,
   CardActionsStyled,
+  GuessStyled,
 } = CardsStyles;
 
 const {
@@ -42,12 +43,17 @@ export function Cards() {
         </PrimaryButton>
       </CardActionsStyled>
 
-      {loading ? (
-        <FallingLines
-          color="#ecfb77"
-          width="100"
-          visible={true}
-        />) : (<h4>{guess}</h4>)}
+      <GuessStyled>{guess}</GuessStyled>
+
+      {
+        loading && (
+          <FallingLines
+            color="#ecfb77"
+            width="100"
+            visible={true}
+          />
+        )
+      }
 
       {
         GAME_ACTIVE && (

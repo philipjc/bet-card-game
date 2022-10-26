@@ -11,7 +11,7 @@ const CardActionsStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: ${props => props.theme.spacing.large};
+  margin-bottom: ${props => props.theme.spacing.medium};
 `;
 
 const CardStyled = styled.div`
@@ -23,10 +23,17 @@ const CardStyled = styled.div`
   //}
 `;
 
+const GuessStyled = styled.p`
+  font-size: 1em;
+  margin-bottom: ${props => props.theme.spacing.medium};
+  color: ${props => props.theme.palette.lowlight};
+`;
+
 const CardsStyles = {
   CardsStyled,
   CardStyled,
   CardActionsStyled,
+  GuessStyled,
 };
 
 export default CardsStyles;

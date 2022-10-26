@@ -37,6 +37,7 @@ export const gameViewSlice = createSlice({
     },
     placeBet: (state, action: PayloadAction<string>) => {
       const { payload } = action;
+      console.log(payload)
       state.bet.guess = payload;
     },
     reducerName: (state, action: PayloadAction<number>) => {},
