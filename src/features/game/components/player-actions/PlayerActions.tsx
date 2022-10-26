@@ -1,9 +1,9 @@
 import React from "react";
 import ButtonsStyles from "../../../../app-styled/Buttons.styled";
 import PlayerActionsStyles from "./PlayerActions.styled";
-import {BET_OPTIONS} from "../../gameView.interfaces";
+import {BET_OPTIONS} from "../../interfaces/gameView.interfaces";
 import {useAppDispatch} from "../../../../app/hooks";
-import {placeBet} from '../../gameViewSlice';
+import {placeBet} from '../../../reducer/gameViewSlice';
 
 const { PrimaryButton } = ButtonsStyles;
 const { PlayerActionsStyled } = PlayerActionsStyles;

@@ -1,10 +1,10 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { enterName, hideNameInput, selectGameState } from './gameViewSlice';
+import { enterName, hideNameInput, selectGameState } from '../reducer/gameViewSlice';
 import GameViewStyles from "./styled/GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
-import {Cards} from "../cards/Cards";
+import {Cards} from "./components/Cards/Cards";
 import {PlayerActions} from "./components/player-actions/PlayerActions";
 
 const {
@@ -34,9 +34,7 @@ export function GameView() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
 
-  const { gameView: game, cards: { currentCard, deck: { cards }} } = gameState;
-
-  const { playerName, initiatePlayer } = game;
+  const { playerName, initiatePlayer, cardsView: { deck: { cards } }} = gameState;
 
   const CARDS_LOADED = cards.length > 0;
   const PLAYER_INITIATED = initiatePlayer;

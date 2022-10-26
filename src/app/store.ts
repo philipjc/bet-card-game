@@ -1,15 +1,9 @@
-import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
-import gameViewReducer from '../features/game/gameViewSlice';
-import cardReducer from '../features/cards/cardsSlice';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import gameViewReducer from '../features/reducer/gameViewSlice';
 
 export const store = configureStore({
   reducer: {
-    gameView: gameViewReducer,
-    cards: cardReducer,
-    game: combineReducers({
-      gameView: gameViewReducer,
-      cards: cardReducer,
-    })
+    game: gameViewReducer,
   },
 });
 

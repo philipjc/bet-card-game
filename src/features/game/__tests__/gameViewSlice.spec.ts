@@ -1,9 +1,9 @@
 import gameViewReducer, {
   enterName,
   hideNameInput,
-} from '../../game/gameViewSlice';
+} from '../../reducer/gameViewSlice';
 
-import {GameView} from "../gameView.interfaces";
+import {GameView} from "../interfaces/gameView.interfaces";
 
 describe('game view reducer', () => {
   const initialState: GameView = {

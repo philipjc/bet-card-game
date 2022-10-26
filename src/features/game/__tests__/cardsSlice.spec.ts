@@ -1,7 +1,7 @@
 import cardsReducer, {
 } from '../../cards/cardsSlice';
 
-import {CardsState} from "../cards.interfaces";
+import {CardsState} from "../../cards/cards.interfaces";
 
 describe('cards reducer', () => {
   const initialState: CardsState = {

@@ -1,25 +1,27 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk, RootState} from '../../app/store';
-import {initialState} from "./gameView.state";
-import {Card} from "../cards/cards.interfaces";
-
-export interface Bet {
-  guess: string;
-  currentCard: Card;
-  win?: boolean;
-}
+import {initialState} from '../game/state/gameView.state';
+import {fetchCards} from '../game/api/cardsAPI';
+import {Bet} from "../game/interfaces/gameView.interfaces";
 
 async function placeAsyncBet(bet: Bet) {
   return new Promise<Bet>((resolve) => {
     return setTimeout(() => {
       resolve(bet);
     }, 5000);
-
   });
 }
 
 // API or async call
 // ========
+export const getCardsAsync = createAsyncThunk(
+  'cards/fetchCards',
+  async (id: string) => {
+    // The value we return becomes the `fulfilled` action payload
+    return await fetchCards(id);
+  }
+);
+// =======
 export const placeBetThunk = createAsyncThunk(
   'game-view/placeBet',
   async (bet: Bet) => {
@@ -52,15 +54,27 @@ export const gameViewSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+
+      // Fetch cards
+      .addCase(getCardsAsync.pending, (state) => {
+        state.cardsView.fetchingCards = true;
+      })
+      .addCase(getCardsAsync.fulfilled, (state, action) => {
+        state.cardsView.fetchingCards = false;
+        state.cardsView.deck = { ...state.cardsView.deck, ...action.payload };
+        state.cardsView.currentCard = action.payload.cards.slice(0, 1);
+      })
+      .addCase(getCardsAsync.rejected, (state) => {
+        state.cardsView.fetchingCards = false;
+      })
+
+      // Place bet
       .addCase(placeBetThunk.pending, state => {
         state.bet.loading = true;
       })
       .addCase(placeBetThunk.fulfilled, (state, action: PayloadAction<Bet>) => {
         state.bet.loading = false;
         state.turn = state.turn += 1;
-        // state.bet.guess = action.payload.guess;
-        console.log(action.payload)
-        console.log('HERE: ', state);
       })
       .addCase(placeBetThunk.rejected, state => {
         state.bet.loading = false;
@@ -70,8 +84,8 @@ export const gameViewSlice = createSlice({
 
 // State selector
 // ==============
-export const selectGameView = (state: RootState) => state.gameView;
-export const selectGameState = (state: RootState) => state;
+export const selectGameState = (state: RootState) => state.game;
+export const selectCardView = (state: RootState) => state.game.cardsView;
 
 // Actions
 // =======
@@ -82,7 +96,7 @@ export const { reducerName, enterName, hideNameInput, placeBet } = gameViewSlice
 export const thunkName =
   (amount: number): AppThunk =>
     (dispatch, getState) => {
-      const currentValue = selectGameView(getState());
+      const currentValue = selectGameState(getState());
       if (currentValue) {
         dispatch(reducerName(amount));
       }

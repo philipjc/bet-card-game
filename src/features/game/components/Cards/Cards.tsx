@@ -1,15 +1,16 @@
 import React from "react";
 import { FallingLines } from 'react-loader-spinner'
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
+
 import {
+  selectGameState,
+  selectCardView,
+  placeBetThunk,
   getCardsAsync,
-} from './cardsSlice';
+} from "../../../reducer/gameViewSlice";
 
-import {placeBetThunk} from "../game/gameViewSlice";
-
-import CardsStyles from "./styled/Cards.styled";
-import ButtonsStyles from "../../app-styled/Buttons.styled";
-import {selectGameState} from "../game/gameViewSlice";
+import CardsStyles from "./Cards.styled";
+import ButtonsStyles from "../../../../app-styled/Buttons.styled";
 
 const {
   CardsStyled,
@@ -25,13 +26,13 @@ const {
 export function Cards() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
+  const cardState = useAppSelector(selectCardView);
 
-  const { gameView: game, cards: cardsList } = gameState;
-  const { currentCard, deck: { cards, deck_id }} = cardsList;
-  const { bet } = game;
-  const { loading, guess } = bet;
+  const { bet: { loading, guess } } = gameState;
+  const { currentCard, deck: { cards, deck_id }, fetchingCards } = cardState;
 
   const GAME_ACTIVE = cards.length > 0;
+  const LOADING = loading || fetchingCards;
 
   return (
     <CardsStyled>
@@ -54,7 +55,7 @@ export function Cards() {
       <GuessStyled>{guess}</GuessStyled>
 
       {
-        loading && (
+        LOADING && (
           <FallingLines
             color="#ecfb77"
             width="100"
@@ -64,7 +65,7 @@ export function Cards() {
       }
 
       {
-        GAME_ACTIVE && !bet.loading && (
+        GAME_ACTIVE && !LOADING && (
           <CardStyled>
             <img src={currentCard[0]?.images.png} alt="A playing card"/>
           </CardStyled>
