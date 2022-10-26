@@ -13,5 +13,8 @@ export interface GameView {
   playerName: string;
   initiatePlayer: boolean;
   score: Score;
-  bet: string;
+  bet: {
+    loading: boolean;
+    guess: string;
+  };
 }

@@ -7,5 +7,8 @@ export const initialState: GameView = {
     won: 0,
     lost: 0
   },
-  bet: '',
+  bet: {
+    loading: false,
+    guess: '',
+  },
 }

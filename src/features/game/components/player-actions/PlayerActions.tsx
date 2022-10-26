@@ -3,7 +3,7 @@ import ButtonsStyles from "../../../../app-styled/Buttons.styled";
 import PlayerActionsStyles from "./PlayerActions.styled";
 import {BET_OPTIONS} from "../../gameView.interfaces";
 import {useAppDispatch} from "../../../../app/hooks";
-import {placeBet, thunkName} from '../../gameViewSlice';
+import {placeBet, placeBetThunk} from '../../gameViewSlice';
 
 const { PrimaryButton } = ButtonsStyles;
 const { PlayerActionsStyled } = PlayerActionsStyles;
@@ -21,10 +21,7 @@ export function PlayerActions() {
       <h4>{PA_DATA.heading}</h4>
 
       <div className="buttons">
-        <PrimaryButton onClick={() => {
-          dispatch(thunkName(1));
-          return dispatch(placeBet(BET_OPTIONS.low));
-        }}>
+        <PrimaryButton onClick={() => dispatch(placeBetThunk(BET_OPTIONS.low))}>
           Lower
         </PrimaryButton>
         <PrimaryButton onClick={() => dispatch(placeBet(BET_OPTIONS.high))}>

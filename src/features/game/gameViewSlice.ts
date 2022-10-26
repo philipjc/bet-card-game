@@ -1,10 +1,25 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk, RootState} from '../../app/store';
 import {initialState} from "./gameView.state";
 
-// API call
-// ========
+async function placeAsyncBet(bet: string) {
+  return new Promise<string>((resolve) => {
+    return setTimeout(() => {
+      resolve(bet);
+    }, 5000);
 
+  });
+}
+
+// API or async call
+// ========
+export const placeBetThunk = createAsyncThunk(
+  'game-view/placeBet',
+  async (bet: string) => {
+    // The value we return becomes the `fulfilled` action payload
+    return await placeAsyncBet(bet);
+  }
+);
 
 // Reducer
 // =======
@@ -22,10 +37,24 @@ export const gameViewSlice = createSlice({
     },
     placeBet: (state, action: PayloadAction<string>) => {
       const { payload } = action;
-      state.bet = payload;
+      state.bet.guess = payload;
     },
     reducerName: (state, action: PayloadAction<number>) => {},
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(placeBetThunk.pending, state => {
+        state.bet.loading = true;
+      })
+      .addCase(placeBetThunk.fulfilled, (state, action) => {
+        state.bet.loading = false;
+        state.bet.guess = action.payload;
+      })
+      .addCase(placeBetThunk.rejected, state => {
+        state.bet.loading = false;
+      })
+  }
 });
 
 // State selector
@@ -42,7 +71,6 @@ export const { reducerName, enterName, hideNameInput, placeBet } = gameViewSlice
 export const thunkName =
   (amount: number): AppThunk =>
     (dispatch, getState) => {
-      console.log(getState())
       const currentValue = selectGameView(getState());
       if (currentValue) {
         dispatch(reducerName(amount));
