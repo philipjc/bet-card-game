@@ -8,19 +8,7 @@ const { AppStyled, AppHeader } = AppStyles;
 
 export const GAME_TITLE = 'Card Gamble';
 
-function playSound() {
-  let ourAudio = document.createElement('audio'); // Create a audio element using the DOM
-  ourAudio.style.display = "none"; // Hide the audio element
-  ourAudio.src = './static/assets/rolling.wav'; // Set resource to our URL
-  ourAudio.autoplay = true; // Automatically play sound
-
-
-  document.body.appendChild(ourAudio);
-}
-
 function App() {
-  playSound();
-
   return (
     <ThemeProvider theme={mainTheme}>
       <AppStyled>
