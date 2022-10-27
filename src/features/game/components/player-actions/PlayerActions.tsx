@@ -10,7 +10,7 @@ const { PlayerActionsStyled } = PlayerActionsStyles;
 
 export const PA_DATA = {
   name: 'PlayerActions',
-  heading: 'Place your bet',
+  heading: 'What will the next card be?',
 };
 
 export function PlayerActions() {

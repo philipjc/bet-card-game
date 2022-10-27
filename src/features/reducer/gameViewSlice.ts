@@ -3,47 +3,37 @@ import {AppThunk, RootState} from '../../app/store';
 import {initialState} from '../game/state/gameView.state';
 import {fetchCards} from '../game/api/cardsAPI';
 import {Bet} from "../game/interfaces/gameView.interfaces";
+import {bettingResult} from "./helpers";
+
 
 async function placeAsyncBet(bet: Bet) {
   return new Promise<Bet>((resolve) => {
-    const { currentCard, nextCard } = bet;
-    const { value: currentCardValue } = currentCard;
-    const { value: nextCardValue } = nextCard;
+    let result: boolean;
 
-    const IS_HIGH_CARD =
-      currentCardValue === 'ACE' ||
-      currentCardValue === 'KING' ||
-      currentCardValue === 'JACK' ||
-      currentCardValue === 'QUEEN';
-
-    const NEXT_CARD_LOWER = JSON.stringify(nextCardValue) === JSON.stringify(IS_HIGH_CARD);
+    bettingResult(bet).then(res => {
+      result = res;
+    });
 
     return setTimeout(() => {
-      resolve({...bet, win: NEXT_CARD_LOWER});
-    }, 1000);
+      resolve({...bet, win: result});
+    }, 3000);
   });
 }
 
 // API or async call
-// ========
+// The value we return becomes the `fulfilled` action payload
+// ===========================================================
 export const getCardsAsync = createAsyncThunk(
   'cards/fetchCards',
-  async (id: string) => {
-    // The value we return becomes the `fulfilled` action payload
-    return await fetchCards(id);
-  }
-);
-// =======
+  async (id: string) => await fetchCards(id));
+
 export const placeBetThunk = createAsyncThunk(
   'game-view/placeBet',
-  async (bet: Bet) => {
-    // The value we return becomes the `fulfilled` action payload
-    return await placeAsyncBet(bet);
-  }
-);
+  async (bet: Bet) => await placeAsyncBet(bet));
+
 
 // Reducer
-// =======
+// ===============================================
 export const gameViewSlice = createSlice({
   name: 'game-view',
   initialState,
@@ -99,7 +89,6 @@ export const gameViewSlice = createSlice({
           state.score.lost = state.score.lost += 1;
         }
         state.bet.loading = false;
-        console.log('END BET: ', Number(payload.win));
       })
       .addCase(placeBetThunk.rejected, state => {
         state.bet.loading = false;
@@ -112,8 +101,8 @@ export const gameViewSlice = createSlice({
 export const selectGameState = (state: RootState) => state.game;
 export const selectCardView = (state: RootState) => state.game.cardsView;
 
-// Actions
-// =======
+// Action exports
+// ==============
 export const { reducerName, enterName, hideNameInput, placeBet } = gameViewSlice.actions;
 
 // Thunks by hand, which may contain both sync and async logic.
