@@ -34,6 +34,7 @@ export async function calculateCards(bet: Bet) {
 
     const CURRENT_IS_HIGH_CARD = HIGH_CARDS.includes(currentCardValue);
     const NEXT_IS_HIGH_CARD = HIGH_CARDS.includes(nextCardValue);
+    const BOTH_NUMBER_CARDS_EQUAL = Number(nextCardValue) === Number(currentCardValue);
 
     const BOTH_CARDS_ARE_HIGH_CARDS = CURRENT_IS_HIGH_CARD && NEXT_IS_HIGH_CARD;
     const BOTH_CARDS_ARE_NUMBERS = !CURRENT_IS_HIGH_CARD && !NEXT_IS_HIGH_CARD;
@@ -61,12 +62,14 @@ export async function calculateCards(bet: Bet) {
     }
 
     if (BOTH_CARDS_ARE_NUMBERS) {
-      if (Number(nextCardValue) === Number(currentCardValue)) {
-        const currentSuit = currentCardSuit;
-        const nextSuit = nextCardSuit;
+      if (BOTH_NUMBER_CARDS_EQUAL) {
+        const currentSuitVal = SUITS_ORDER.get(currentCardSuit);
+        const nextSuitVal = SUITS_ORDER.get(nextCardSuit);
 
-        // use map to get value and cal.
-        // return resolve(answer);
+        return bet.guess === BET_OPTIONS.low
+          ? resolve(Number(nextSuitVal) < Number(currentSuitVal))
+          : resolve(Number(nextSuitVal) > Number(currentSuitVal));
+
       }
       return bet.guess === BET_OPTIONS.low
         ? resolve(Number(nextCardValue) < Number(currentCardValue))
