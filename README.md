@@ -1,4 +1,4 @@
-# Card Flip Game: CD Projekt Red
+# Card Flip Game
 
 ### Here is a card betting game!
 #### When a card shows bet higher or lower and see if you can beat the follow-up card. Good luck!
