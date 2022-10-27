@@ -52,7 +52,14 @@ export const gameViewSlice = createSlice({
       const { payload } = action;
       state.bet.guess = payload;
     },
-    reducerName: (state, action: PayloadAction<number>) => {},
+    newGame: state => {
+      state.gameOver = false;
+      state.turn = 0;
+      state.cardsView.currentCard = [state.cardsView.deck.cards[0]];
+      state.score.won = 0;
+      state.score.lost = 0;
+      state.bet.guess = '';
+    },
   },
 
   extraReducers: (builder) => {
@@ -106,17 +113,7 @@ export const selectCardView = (state: RootState) => state.game.cardsView;
 
 // Action exports
 // ==============
-export const { reducerName, enterName, hideNameInput, placeBet } = gameViewSlice.actions;
+export const { newGame, enterName, hideNameInput, placeBet } = gameViewSlice.actions;
 
-// Thunks by hand, which may contain both sync and async logic.
-// Here's an example of conditionally dispatching actions based on current state.
-export const thunkName =
-  (amount: number): AppThunk =>
-    (dispatch, getState) => {
-      const currentValue = selectGameState(getState());
-      if (currentValue) {
-        dispatch(reducerName(amount));
-      }
-    };
-
+// Reducer export
 export default gameViewSlice.reducer;

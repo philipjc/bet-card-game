@@ -1,9 +1,12 @@
 import React from "react";
 import gameOverStyles from "./GameOver.styled";
+import buttonsStyled from "../../../../app-styled/Buttons.styled";
 import {useAppDispatch, useAppSelector} from "../../../../app/hooks";
 import {selectGameState} from "../../../reducer/gameViewSlice";
+import {newGame} from "../../../reducer/gameViewSlice";
 
 const { GameOverStyled } = gameOverStyles;
+const { PrimaryButton } = buttonsStyled;
 
 export const GO_DATA = {
   heading: {
@@ -33,6 +36,10 @@ export function GameOver() {
 
       <p>{WON_AMOUNT}</p>
       <p>{LOSE_AMOUNT}</p>
+
+      <PrimaryButton onClick={() => dispatch(newGame())}>
+        New game?
+      </PrimaryButton>
     </GameOverStyled>
   )
 }
