@@ -18,7 +18,7 @@ const PlayerActionsStyled = styled.div`
 `;
 
 const PlayerActionsStyles = {
-PlayerActionsStyled,
+  PlayerActionsStyled,
 };
 
 export default PlayerActionsStyles;

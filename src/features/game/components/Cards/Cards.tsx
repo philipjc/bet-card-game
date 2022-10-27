@@ -1,5 +1,5 @@
 import React from "react";
-import { FallingLines } from 'react-loader-spinner'
+import { Hearts } from 'react-loader-spinner'
 import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
 
 import {
@@ -17,6 +17,7 @@ const {
   CardStyled,
   CardActionsStyled,
   GuessStyled,
+  LoaderContainer,
 } = CardsStyles;
 
 const {
@@ -26,10 +27,17 @@ const {
 export const CARDS_DATA = {
   playerGuess: (guess: string) => guess ? `You bet ${guess}ER...` : null,
   actionButton: (gameActive: boolean) => gameActive ? 'Go' : 'Play',
-  cardAlt: 'A playing card',
+  noGuess: 'Waiting for your guess...',
+  card: {
+    cardAlt: 'A playing card',
+    width: '226px',
+    height: '314px',
+  },
   loader: {
-    loaderColor: '#25363e',
-    loaderSize: '100',
+    loaderColor: '#ecfb77',
+    loaderWidth: '200',
+    loaderHeight: '200',
+    aria: 'hearts-loading',
   }
 };
 
@@ -45,6 +53,7 @@ export function Cards() {
   const LOADING = loading || fetchingCards;
   const PLAYER_GUESS = CARDS_DATA.playerGuess(guess);
   const SHOW_CARDS = GAME_ACTIVE && !LOADING;
+  const NO_BET = GAME_ACTIVE && guess.length < 1;
 
   return (
     <CardsStyled>
@@ -54,23 +63,37 @@ export function Cards() {
             GAME_ACTIVE
               ? dispatch(placeBetThunk({ guess, currentCard: currentCard[0], nextCard: nextCard[0] }))
               : dispatch(getCardsAsync(deck_id))}
+          disabled={LOADING || NO_BET}
         >
           {CARDS_DATA.actionButton(GAME_ACTIVE)}
         </PrimaryButton>
       </CardActionsStyled>
 
-      <GuessStyled>{PLAYER_GUESS}</GuessStyled>
+      <GuessStyled>{NO_BET ? CARDS_DATA.noGuess : PLAYER_GUESS}</GuessStyled>
 
-      <FallingLines
-        color={CARDS_DATA.loader.loaderColor}
-        width={CARDS_DATA.loader.loaderSize}
-        visible={LOADING}
-      />
+      {
+        LOADING && (
+          <LoaderContainer>
+            <Hearts
+              height={CARDS_DATA.loader.loaderHeight}
+              width={CARDS_DATA.loader.loaderWidth}
+              color={CARDS_DATA.loader.loaderColor}
+              visible={LOADING}
+              ariaLabel={CARDS_DATA.loader.aria}
+            />
+          </LoaderContainer>
+        )
+      }
 
       {
         SHOW_CARDS && (
           <CardStyled>
-            <img src={currentCard[0]?.images.png} alt={CARDS_DATA.cardAlt} />
+            <img
+              width={CARDS_DATA.card.width}
+              height={CARDS_DATA.card.height}
+              src={currentCard[0]?.images.png}
+              alt={CARDS_DATA.card.cardAlt}
+            />
           </CardStyled>
         )
       }

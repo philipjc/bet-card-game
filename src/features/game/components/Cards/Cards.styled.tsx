@@ -29,11 +29,22 @@ const GuessStyled = styled.p`
   color: ${props => props.theme.palette.lowlight};
 `;
 
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 226px;
+  height: 314px;
+  background-color: ${props => props.theme.palette.lowlight};
+`;
+
 const CardsStyles = {
   CardsStyled,
   CardStyled,
   CardActionsStyled,
   GuessStyled,
+  LoaderContainer,
 };
 
 export default CardsStyles;
