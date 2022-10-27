@@ -6,7 +6,7 @@ const GameViewStyled = styled.div`
 
 const NameEntryStyled = styled.div`
 
-  height: 50vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,6 +31,7 @@ const NameEntryStyled = styled.div`
 const NameStyled = styled.div`
   display: flex;
   justify-content: space-evenly;
+  padding-left: .2em;
   
   h3 {
     margin-top: ${props => props.theme.spacing.medium};

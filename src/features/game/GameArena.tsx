@@ -39,7 +39,7 @@ export function GameArena() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
   const [name, updateName] = useState('');
-  const [numberOfCards, updateNumberOfCards] = useState('');
+  const [numberOfCards, updateNumberOfCards] = useState('10');
 
   const {
     gameOver,

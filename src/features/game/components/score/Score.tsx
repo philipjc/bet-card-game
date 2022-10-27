@@ -26,6 +26,7 @@ export function Score() {
     turn,
     playerName,
     score: { won, lost },
+    cardsView: { deck: { cards }}
   }: GameView = gameState;
 
   return (
@@ -36,6 +37,7 @@ export function Score() {
           <>
             <h3>{SCORE_DATA.score.win(won)}</h3>
             <h3>{SCORE_DATA.score.lose(lost)}</h3>
+            <h3>{`Remaining: ${cards.length - (won + lost)}`}</h3>
           </>
         )
       }
