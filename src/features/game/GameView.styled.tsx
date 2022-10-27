@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 const GameViewStyled = styled.div`
   height: 90vh;
+  
+  .UI {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 `;
 
 const NameEntryStyled = styled.div`

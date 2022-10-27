@@ -7,7 +7,6 @@ const AppStyled = styled.div`
   font-size: 32px;
   color: ${props => props.theme.palette.text};
   
-  max-width: 1000px;
   margin: 0 auto;
 `;
 
@@ -19,7 +18,7 @@ const AppHeader = styled.h1`
   width: 100%;
   background-color: ${props => props.theme.palette.highlight};
   font-size: 1.5em;
-  border-bottom: .4em solid ${props => props.theme.palette.lowlight};;
+  border-bottom: .4em solid ${props => props.theme.palette.lowlight};
 `
 
 const AppStyles = {
