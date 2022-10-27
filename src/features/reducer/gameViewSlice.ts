@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AppThunk, RootState} from '../../app/store';
+import {RootState} from '../../app/store';
 import {initialState} from '../game/state/gameView.state';
 import {fetchCards} from '../game/api/cardsAPI';
-import {Bet} from "../game/interfaces/gameView.interfaces";
+import {Bet, GameView} from "../game/interfaces/gameView.interfaces";
 import {bettingResult} from "./helpers";
 
 
@@ -41,18 +41,19 @@ export const gameViewSlice = createSlice({
   initialState,
 
   reducers: {
-    enterName: (state, action: PayloadAction<string>) => {
+    enterName: (state: GameView, action: PayloadAction<string>) => {
       const { payload } = action;
+      state.initiatePlayer = true;
       state.playerName = payload;
     },
-    hideNameInput: state => {
+    hideNameInput: (state: GameView) => {
       state.initiatePlayer = true;
     },
-    placeBet: (state, action: PayloadAction<string>) => {
+    placeBet: (state: GameView, action: PayloadAction<string>) => {
       const { payload } = action;
       state.bet.guess = payload;
     },
-    newGame: state => {
+    newGame: (state: GameView) => {
       state.gameOver = false;
       state.turn = 0;
       state.cardsView.currentCard = [state.cardsView.deck.cards[0]];
@@ -60,30 +61,35 @@ export const gameViewSlice = createSlice({
       state.score.lost = 0;
       state.bet.guess = '';
     },
+    restart: (state: GameView) => {
+      state.playerName = '';
+      state.initiatePlayer = false;
+      newGame();
+    }
   },
 
   extraReducers: (builder) => {
     builder
 
       // Fetch cards
-      .addCase(getCardsAsync.pending, (state) => {
+      .addCase(getCardsAsync.pending, (state: GameView) => {
         state.cardsView.fetchingCards = true;
       })
-      .addCase(getCardsAsync.fulfilled, (state, action) => {
+      .addCase(getCardsAsync.fulfilled, (state: GameView, action) => {
         state.cardsView.deck = { ...state.cardsView.deck, ...action.payload };
         state.cardsView.currentCard = [action.payload.cards[state.turn]];
         state.cardsView.nextCard = [action.payload.cards[state.turn + 1]];
         state.cardsView.fetchingCards = false;
       })
-      .addCase(getCardsAsync.rejected, (state) => {
+      .addCase(getCardsAsync.rejected, (state: GameView) => {
         state.cardsView.fetchingCards = false;
       })
 
       // Place bet
-      .addCase(placeBetThunk.pending, state => {
+      .addCase(placeBetThunk.pending, (state: GameView) => {
         state.bet.loading = true;
       })
-      .addCase(placeBetThunk.fulfilled, (state, action: PayloadAction<Bet>) => {
+      .addCase(placeBetThunk.fulfilled, (state: GameView, action: PayloadAction<Bet>) => {
         const { payload } = action;
         const newTurn = state.turn += 1;
         const newCurrentCard = newTurn;
@@ -100,7 +106,7 @@ export const gameViewSlice = createSlice({
         state.gameOver = state.turn === 2;
         state.bet.loading = false;
       })
-      .addCase(placeBetThunk.rejected, state => {
+      .addCase(placeBetThunk.rejected, (state: GameView) => {
         state.bet.loading = false;
       })
   }
@@ -113,7 +119,7 @@ export const selectCardView = (state: RootState) => state.game.cardsView;
 
 // Action exports
 // ==============
-export const { newGame, enterName, hideNameInput, placeBet } = gameViewSlice.actions;
+export const { newGame, enterName, hideNameInput, placeBet, restart } = gameViewSlice.actions;
 
 // Reducer export
 export default gameViewSlice.reducer;

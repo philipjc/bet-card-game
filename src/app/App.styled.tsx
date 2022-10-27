@@ -19,6 +19,7 @@ const AppHeader = styled.h1`
   width: 100%;
   background-color: ${props => props.theme.palette.highlight};
   font-size: 1.5em;
+  border-bottom: .4em solid ${props => props.theme.palette.lowlight};;
 `
 
 const AppStyles = {

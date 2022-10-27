@@ -14,7 +14,8 @@ const SecondaryButton = styled.button`
   background-color: ${props => props.theme.palette.highlight};
   color: ${props => props.theme.palette.text};
   padding: ${props => props.theme.spacing.medium} ${props => props.theme.spacing.large};
-  font-size: .5em;
+  font-size: .3em;
+  font-weight: bold;
 `;
 
 const ButtonsStyles = {

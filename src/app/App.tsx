@@ -6,7 +6,7 @@ import AppStyles from "./App.styled";
 
 const { AppStyled, AppHeader } = AppStyles;
 
-export const GAME_TITLE = 'Title of the Game';
+export const GAME_TITLE = 'Card Gamble';
 
 function App() {
   return (

@@ -7,6 +7,7 @@ import {
   selectCardView,
   placeBetThunk,
   getCardsAsync,
+  restart,
 } from "../../../reducer/gameViewSlice";
 
 import CardsStyles from "./Cards.styled";
@@ -26,7 +27,7 @@ const {
 
 export const CARDS_DATA = {
   playerGuess: (guess: string) => guess ? `You bet ${guess}ER...` : null,
-  actionButton: (gameActive: boolean) => gameActive ? 'Go' : 'Play',
+  actionButton: (gameActive: boolean) => gameActive ? 'Place bet' : 'Play',
   noGuess: 'Waiting for your guess...',
   card: {
     cardAlt: 'A playing card',
@@ -67,6 +68,15 @@ export function Cards() {
         >
           {CARDS_DATA.actionButton(GAME_ACTIVE)}
         </PrimaryButton>
+        {
+          !GAME_ACTIVE && (
+            <PrimaryButton
+              onClick={() => dispatch(restart())}
+            >
+              Restart
+            </PrimaryButton>
+          )
+        }
       </CardActionsStyled>
 
       <GuessStyled>{NO_BET ? CARDS_DATA.noGuess : PLAYER_GUESS}</GuessStyled>

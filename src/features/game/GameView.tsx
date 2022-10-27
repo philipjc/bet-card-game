@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { enterName, hideNameInput, selectGameState } from '../reducer/gameViewSlice';
-import GameViewStyles from "./styled/GameView.styled";
+import GameViewStyles from "./GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
 import {Cards} from "./components/Cards/Cards";
@@ -17,11 +17,13 @@ const {
 
 const {
   PrimaryButton,
+  SecondaryButton,
 } = ButtonsStyles;
 
 
 export const GV_DATA = {
   name: 'GameView',
+  gameEnter: 'Enter',
   player: {
     heading: 'Please enter your name',
     message: 'Welcome,'
@@ -34,6 +36,7 @@ export const GV_DATA = {
 export function GameView() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
+  const [name, updateName] = useState('');
 
   const {
     gameOver,
@@ -56,23 +59,21 @@ export function GameView() {
       <div className="UI">
         <div className="UI__header"></div>
 
-        {
-          HIDE_NAME_INPUTS && (
-            <NameEntryStyled>
-              <h2>{GV_DATA.player.heading}</h2>
-              <input onChange={(e) => dispatch(enterName(e.target.value))} type="text" />
-            </NameEntryStyled>
-          )
+        { playerName.length < 1 &&
+          <NameEntryStyled>
+            <h2>{GV_DATA.player.heading}</h2>
+            <input onChange={(e) => updateName(e.target.value)} type="text" />
+            <SecondaryButton onClick={(e) => {
+              if (name) {
+                dispatch(enterName(name));
+                updateName('');
+              }
+            }}>{GV_DATA.gameEnter}</SecondaryButton>
+          </NameEntryStyled>
         }
 
-        <NameStyled>
-          <h3>{`${GV_DATA.player.message} ${playerName}`}</h3>
-          {GAME_ACTIVE && <h3>{PLAYER_SCORE_WIN}</h3>}
-          {GAME_ACTIVE && <h3>{PLAYER_SCORE_LOST}</h3>}
-        </NameStyled>
-
-        {
-          HIDE_NAME_INPUTS && (
+        { !PLAYER_INITIATED &&
+          playerName.length > 1 && (
             <InitiateStyled>
               <PrimaryButton onClick={() => dispatch(hideNameInput())}>
                 {GV_DATA.initiate.button}
