@@ -5,6 +5,7 @@ import GameViewStyles from "./styled/GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
 import {Cards} from "./components/Cards/Cards";
+import {GameOver} from "./components/game-over/GameOver";
 import {PlayerActions} from "./components/player-actions/PlayerActions";
 
 const {
@@ -34,8 +35,14 @@ export function GameView() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
 
-  const { playerName, initiatePlayer, score: { won, lost }, cardsView: { deck: { cards } }} = gameState;
+  const {
+    gameOver,
+    playerName,
+    initiatePlayer,
+    score: { won, lost },
+    cardsView: { deck: { cards } }} = gameState;
 
+  const GAME_OVER = gameOver;
   const GAME_ACTIVE = cards.length > 0;
   const PLAYER_INITIATED = initiatePlayer;
   const PLAYER_NOT_INITIATED = !initiatePlayer;
@@ -75,7 +82,7 @@ export function GameView() {
         }
 
         {
-          PLAYER_INITIATED && (
+          PLAYER_INITIATED && !GAME_OVER ? (
             <>
               <Cards />
               {
@@ -84,7 +91,9 @@ export function GameView() {
                 )
               }
             </>
-          )
+          ) : GAME_OVER ? (
+            <GameOver />
+          ) : null
         }
 
       </div>

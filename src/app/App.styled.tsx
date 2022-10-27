@@ -14,7 +14,11 @@ const AppStyled = styled.div`
 const AppHeader = styled.h1`
   height: 10vh;
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 100%;
+  background-color: ${props => props.theme.palette.highlight};
+  font-size: 1.5em;
 `
 
 const AppStyles = {

@@ -16,7 +16,7 @@ async function placeAsyncBet(bet: Bet) {
 
     return setTimeout(() => {
       resolve({...bet, win: result});
-    }, 3000);
+    }, 1000);
   });
 }
 
@@ -31,6 +31,8 @@ export const placeBetThunk = createAsyncThunk(
   'game-view/placeBet',
   async (bet: Bet) => await placeAsyncBet(bet));
 
+
+const INT_ONE = 1;
 
 // Reducer
 // ===============================================
@@ -84,10 +86,11 @@ export const gameViewSlice = createSlice({
         state.cardsView.currentCard = [state.cardsView.deck.cards[newCurrentCard]];
         state.cardsView.nextCard = [state.cardsView.deck.cards[newNextCard]];
         if (payload.win) {
-          state.score.won = state.score.won += 1;
+          state.score.won = state.score.won += INT_ONE;
         } else {
-          state.score.lost = state.score.lost += 1;
+          state.score.lost = state.score.lost += INT_ONE;
         }
+        state.gameOver = state.turn === 2;
         state.bet.loading = false;
       })
       .addCase(placeBetThunk.rejected, state => {

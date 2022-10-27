@@ -22,14 +22,13 @@ export function PlayerActions() {
   const gameState = useAppSelector(selectGameState);
   const cardState = useAppSelector(selectCardView);
 
-  const { bet: { guess, loading } } = gameState;
-  const { deck: { cards }, fetchingCards } = cardState;
+  const { bet: { loading }, gameOver } = gameState;
+  const { fetchingCards } = cardState;
 
-  const GAME_ACTIVE = cards.length > 0;
-  const NO_BET = GAME_ACTIVE && guess.length < 1;
   const LOADING = loading || fetchingCards;
+  const GAME_OVER = gameOver;
 
-  return (
+  return GAME_OVER ? null : (
     <PlayerActionsStyled data-testid={PA_DATA.name}>
       <h4>{PA_DATA.heading}</h4>
 

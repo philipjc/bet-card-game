@@ -42,6 +42,7 @@ export interface GameView {
   cardsView: CardsView;
   score: Score;
   bet: BetView;
+  gameOver: boolean;
 }
 
 interface Images {

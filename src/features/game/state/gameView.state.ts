@@ -29,4 +29,5 @@ export const initialState: GameView = {
   cardsView: gameViewState,
   score: scoreState,
   bet: betViewState,
+  gameOver: false,
 }
