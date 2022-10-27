@@ -1,7 +1,7 @@
 import React from 'react';
 import {ThemeProvider} from "styled-components";
 import {mainTheme} from "../themes/main-theme";
-import {GameView} from "../features/game/GameView";
+import {GameArena} from "../features/game/GameArena";
 import AppStyles from "./App.styled";
 
 const { AppStyled, AppHeader } = AppStyles;
@@ -13,7 +13,7 @@ function App() {
     <ThemeProvider theme={mainTheme}>
       <AppStyled>
         <AppHeader>{GAME_TITLE}</AppHeader>
-        <GameView />
+        <GameArena />
       </AppStyled>
     </ThemeProvider>
   );

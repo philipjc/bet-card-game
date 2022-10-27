@@ -12,6 +12,7 @@ import {
 
 import CardsStyles from "./Cards.styled";
 import ButtonsStyles from "../../../../app-styled/Buttons.styled";
+import {Bet, RequestConfig} from "../../interfaces/gameView.interfaces";
 
 const {
   CardsStyled,
@@ -47,7 +48,7 @@ export function Cards() {
   const gameState = useAppSelector(selectGameState);
   const cardState = useAppSelector(selectCardView);
 
-  const { bet: { loading, guess } } = gameState;
+  const { bet: { loading, guess }, numberOfCards } = gameState;
   const { currentCard, nextCard, deck: { cards, deck_id }, fetchingCards } = cardState;
 
   const GAME_ACTIVE = cards.length > 0;
@@ -56,14 +57,17 @@ export function Cards() {
   const SHOW_CARDS = GAME_ACTIVE && !LOADING;
   const NO_BET = GAME_ACTIVE && guess.length < 1;
 
+  const GAME_CONFIG: RequestConfig = { deck_id, numberOfCards };
+  const PLACE_BET: Bet = { guess, currentCard: currentCard[0], nextCard: nextCard[0] };
+
   return (
     <CardsStyled>
       <CardActionsStyled>
         <PrimaryButton
           onClick={() =>
             GAME_ACTIVE
-              ? dispatch(placeBetThunk({ guess, currentCard: currentCard[0], nextCard: nextCard[0] }))
-              : dispatch(getCardsAsync(deck_id))}
+              ? dispatch(placeBetThunk(PLACE_BET))
+              : dispatch(getCardsAsync(GAME_CONFIG))}
           disabled={LOADING || NO_BET}
         >
           {CARDS_DATA.actionButton(GAME_ACTIVE)}
@@ -72,6 +76,7 @@ export function Cards() {
           !GAME_ACTIVE && (
             <PrimaryButton
               onClick={() => dispatch(restart())}
+              disabled={LOADING || NO_BET}
             >
               Restart
             </PrimaryButton>

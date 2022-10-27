@@ -4,7 +4,7 @@ const CardsStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: ${props => props.theme.spacing.large};
+  margin-top: ${props => props.theme.spacing.medium};
 `;
 
 const CardActionsStyled = styled.div`
@@ -15,6 +15,7 @@ const CardActionsStyled = styled.div`
   
   button {
     margin-bottom: 1em;
+  }
   }
 `;
 

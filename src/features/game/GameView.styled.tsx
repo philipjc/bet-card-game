@@ -6,7 +6,7 @@ const GameViewStyled = styled.div`
 
 const NameEntryStyled = styled.div`
 
-  height: 30vh;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,6 +31,18 @@ const NameEntryStyled = styled.div`
 const NameStyled = styled.div`
   display: flex;
   justify-content: space-evenly;
+  
+  h3 {
+    margin-top: ${props => props.theme.spacing.medium};
+    text-align: center;
+  }
+  
+  div {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: ${props => props.theme.spacing.medium} auto;
+  }
 `;
 
 const InitiateStyled = styled.div`

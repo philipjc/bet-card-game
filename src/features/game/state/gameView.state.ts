@@ -24,6 +24,7 @@ const betViewState = {
 
 export const initialState: GameView = {
   playerName: '',
+  numberOfCards: '',
   initiatePlayer: false,
   turn: 0,
   cardsView: gameViewState,

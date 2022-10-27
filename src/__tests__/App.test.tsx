@@ -5,7 +5,7 @@ import { store } from '../app/store';
 import App from '../app/App';
 
 import {GAME_TITLE} from "../app/App";
-import {GV_DATA} from "../features/game/GameView";
+import {GV_DATA} from "../features/game/GameArena";
 
 describe('App tests', () => {
   render(

@@ -20,6 +20,10 @@ const GameOverStyled = styled.div`
     margin-bottom: 1em;
   }
   
+  button {
+    margin-top: .5em;
+  }
+  
 `;
 
 const gameOverStyles = {

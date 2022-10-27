@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {initialState} from '../game/state/gameView.state';
 import {fetchCards} from '../game/api/cardsAPI';
-import {Bet, GameView} from "../game/interfaces/gameView.interfaces";
+import {Bet, RequestConfig, GameView, GameConfig} from "../game/interfaces/gameView.interfaces";
 import {bettingResult} from "./helpers";
 
 
@@ -25,7 +25,7 @@ async function placeAsyncBet(bet: Bet) {
 // ===========================================================
 export const getCardsAsync = createAsyncThunk(
   'cards/fetchCards',
-  async (id: string) => await fetchCards(id));
+  async (config: RequestConfig) => await fetchCards(config));
 
 export const placeBetThunk = createAsyncThunk(
   'game-view/placeBet',
@@ -41,10 +41,11 @@ export const gameViewSlice = createSlice({
   initialState,
 
   reducers: {
-    enterName: (state: GameView, action: PayloadAction<string>) => {
+    enterName: (state: GameView, action: PayloadAction<GameConfig>) => {
       const { payload } = action;
       state.initiatePlayer = true;
-      state.playerName = payload;
+      state.playerName = payload.name;
+      state.numberOfCards = payload.numberOfCards;
     },
     hideNameInput: (state: GameView) => {
       state.initiatePlayer = true;
@@ -63,8 +64,16 @@ export const gameViewSlice = createSlice({
     },
     restart: (state: GameView) => {
       state.playerName = '';
+      state.numberOfCards = '';
       state.initiatePlayer = false;
-      newGame();
+      state.gameOver = false;
+      state.turn = 0;
+      state.cardsView.currentCard = [];
+      state.cardsView.nextCard = [];
+      state.cardsView.deck.cards = [];
+      state.score.won = 0;
+      state.score.lost = 0;
+      state.bet.guess = '';
     }
   },
 
@@ -103,7 +112,7 @@ export const gameViewSlice = createSlice({
         } else {
           state.score.lost = state.score.lost += INT_ONE;
         }
-        state.gameOver = state.turn === 2;
+        state.gameOver = state.turn === Number(state.numberOfCards);
         state.bet.loading = false;
       })
       .addCase(placeBetThunk.rejected, (state: GameView) => {

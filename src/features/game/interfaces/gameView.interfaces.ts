@@ -1,3 +1,4 @@
+import exp from "constants";
 
 export enum BET_OPTIONS {
   high = 'HIGH',
@@ -9,6 +10,16 @@ export interface Bet {
   currentCard: Card;
   nextCard: Card;
   win?: boolean;
+}
+
+export interface RequestConfig {
+  deck_id: string;
+  numberOfCards: string;
+}
+
+export interface GameConfig {
+  name: string;
+  numberOfCards: string;
 }
 
 export interface Score {
@@ -37,6 +48,7 @@ export interface CardsView {
 
 export interface GameView {
   playerName: string;
+  numberOfCards: string;
   initiatePlayer: boolean;
   turn: number;
   cardsView: CardsView;

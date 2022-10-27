@@ -4,14 +4,15 @@ import { enterName, hideNameInput, selectGameState } from '../reducer/gameViewSl
 import GameViewStyles from "./GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
+import {GameConfig, GameView} from "./interfaces/gameView.interfaces"
 import {Cards} from "./components/Cards/Cards";
 import {GameOver} from "./components/game-over/GameOver";
 import {PlayerActions} from "./components/player-actions/PlayerActions";
+import {Score} from "./components/score/Score";
 
 const {
   GameViewStyled,
   NameEntryStyled,
-  NameStyled,
   InitiateStyled,
 } = GameViewStyles;
 
@@ -26,47 +27,51 @@ export const GV_DATA = {
   gameEnter: 'Enter',
   player: {
     heading: 'Please enter your name',
-    message: 'Welcome,'
+    headingTwo: 'Number of cards?',
+    message: (name: string) => name.length > 1 ? `Welcome, ${name}` : ''
   },
   initiate: {
     button: 'Let\'s begin',
   }
 }
 
-export function GameView() {
+export function GameArena() {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(selectGameState);
   const [name, updateName] = useState('');
+  const [numberOfCards, updateNumberOfCards] = useState('');
 
   const {
     gameOver,
     playerName,
     initiatePlayer,
-    score: { won, lost },
-    cardsView: { deck: { cards } }} = gameState;
+    cardsView: { deck: { cards } }}: GameView = gameState;
 
-  const GAME_OVER = gameOver;
-  const GAME_ACTIVE = cards.length > 0;
-  const PLAYER_INITIATED = initiatePlayer;
-  const PLAYER_NOT_INITIATED = !initiatePlayer;
-  const HIDE_NAME_INPUTS = playerName?.length > 1 && PLAYER_NOT_INITIATED;
-  const PLAYER_SCORE_WIN = `Score: Won: ${won}`;
-  const PLAYER_SCORE_LOST = `Score: Lost: ${lost}`;
+  const GAME_OVER: boolean = gameOver;
+  const GAME_ACTIVE: boolean = cards.length > 0;
+  const PLAYER_INITIATED: boolean = initiatePlayer;
+  const GAME_CONFIG: GameConfig = {name, numberOfCards}
 
   return (
     <GameViewStyled data-testid={GV_DATA.name}>
 
       <div className="UI">
-        <div className="UI__header"></div>
-
         { playerName.length < 1 &&
           <NameEntryStyled>
             <h2>{GV_DATA.player.heading}</h2>
             <input onChange={(e) => updateName(e.target.value)} type="text" />
+            <h2>{GV_DATA.player.headingTwo}</h2>
+            <input onChange={(e) => {
+              if (Number(e.target.value) > 3) {
+                updateNumberOfCards(e.target.value);
+              }
+            }
+            } type="number" />
             <SecondaryButton onClick={(e) => {
               if (name) {
-                dispatch(enterName(name));
+                dispatch(enterName(GAME_CONFIG));
                 updateName('');
+                updateNumberOfCards('');
               }
             }}>{GV_DATA.gameEnter}</SecondaryButton>
           </NameEntryStyled>
@@ -79,6 +84,12 @@ export function GameView() {
                 {GV_DATA.initiate.button}
               </PrimaryButton>
             </InitiateStyled>
+          )
+        }
+
+        {
+          PLAYER_INITIATED && !GAME_OVER && (
+            <Score />
           )
         }
 
