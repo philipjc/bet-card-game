@@ -18,17 +18,15 @@ export function GameEntry(): ReactElement<string> {
   const { name, updateName, updateNumberOfCards, GAME_CONFIG } = usePlayerEntry();
 
   return (
-    <div className="hero-body">
+    <div className="hero-body pt-4">
       <div className="container has-text-centered">
         <div className="column is-6 is-offset-3">
           <h1 className="title">
             Welcome to Card Gamble.
           </h1>
-          <h2 className="subtitle">
-            A game of chance...
-          </h2>
-          <h2 className="subtitle">
-            Are you ready to play?
+          <h2 className="subtitle pt-5 pb-4">
+            A game of chance... ready to play?
+
           </h2>
           <div className="box">
             <div className="field is-grouped">
