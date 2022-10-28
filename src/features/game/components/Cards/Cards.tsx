@@ -8,20 +8,6 @@ import {
   restart,
 } from "../../../reducer/gameViewSlice";
 
-import CardsStyles from "./Cards.styled";
-import ButtonsStyles from "../../../../app-styled/Buttons.styled";
-
-const {
-  CardsStyled,
-  CardStyled,
-  CardActionsStyled,
-  GuessStyled,
-  LoaderContainer,
-} = CardsStyles;
-
-const {
-  PrimaryButton,
-} = ButtonsStyles;
 
 export const CARDS_DATA = {
   playerGuess: (guess: string) => guess ? `You bet ${guess}ER...` : null,
@@ -48,58 +34,72 @@ export function Cards() {
   } = useGameState();
 
   return (
-    <CardsStyled>
-      <CardActionsStyled>
-        <PrimaryButton
-          onClick={() =>
-            GAME_ACTIVE
-              ? dispatch(placeBetThunk(PLACE_BET))
-              : dispatch(getCardsAsync(GAME_CONFIG))}
-          disabled={LOADING || NO_BET}
-        >
-          {CARDS_DATA.actionButton(GAME_ACTIVE)}
-        </PrimaryButton>
-        {
-          !GAME_ACTIVE && (
-            <PrimaryButton
-              onClick={() => dispatch(restart())}
-              disabled={LOADING || NO_BET}
-            >
-              Restart
-            </PrimaryButton>
-          )
-        }
-      </CardActionsStyled>
+    <>
+      <section className="section is-medium is-flex is-flex-direction-column is-paddingless">
+        <div className="container has-text-centered">
+          <button
+            className="button mr-2"
+            onClick={() =>
+              GAME_ACTIVE
+                ? dispatch(placeBetThunk(PLACE_BET))
+                : dispatch(getCardsAsync(GAME_CONFIG))}
+            disabled={LOADING || NO_BET}
+          >
+            {CARDS_DATA.actionButton(GAME_ACTIVE)}
+          </button>
 
-      <GuessStyled>{NO_BET ? CARDS_DATA.noGuess : PLAYER_GUESS}</GuessStyled>
+          {
+            !GAME_ACTIVE && (
+              <button
+                onClick={() => dispatch(restart())}
+                disabled={LOADING || NO_BET}
+                className="button ml-2">
+                Restart
+              </button>
+            )
+          }
+        </div>
 
-      {
-        LOADING && (
-          <LoaderContainer>
-            <Hearts
-              height={CARDS_DATA.loader.loaderHeight}
-              width={CARDS_DATA.loader.loaderWidth}
-              color={CARDS_DATA.loader.loaderColor}
-              visible={LOADING}
-              ariaLabel={CARDS_DATA.loader.aria}
-            />
-          </LoaderContainer>
-        )
-      }
+        <div className="container has-text-centered mb-5 mt-5">
+          <h4 className="subtitle is-4 mb-2 mt-2">{NO_BET ? CARDS_DATA.noGuess : PLAYER_GUESS}</h4>
+        </div>
 
-      {
-        SHOW_CARDS && (
-          <CardStyled>
-            <img
-              width={CARDS_DATA.card.width}
-              height={CARDS_DATA.card.height}
-              src={CURRENT_CARD_IMG}
-              alt={CARDS_DATA.card.cardAlt}
-            />
-          </CardStyled>
-        )
-      }
 
-    </CardsStyled>
+        <div className="container is-fluid mt-2 mb-5">
+          <div className="is-flex is-justify-content-center">
+
+            {
+              LOADING && (
+                <div>
+                  <Hearts
+                    height={CARDS_DATA.loader.loaderHeight}
+                    width={CARDS_DATA.loader.loaderWidth}
+                    color={CARDS_DATA.loader.loaderColor}
+                    visible={LOADING}
+                    ariaLabel={CARDS_DATA.loader.aria}
+                  />
+                </div>
+              )
+            }
+
+            {
+              SHOW_CARDS && (
+                <>
+                  <div className="card">
+                    <img
+                      width={CARDS_DATA.card.width}
+                      height={CARDS_DATA.card.height}
+                      src={CURRENT_CARD_IMG}
+                      alt={CARDS_DATA.card.cardAlt}
+                    />
+                  </div>
+                </>
+              )
+            }
+
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

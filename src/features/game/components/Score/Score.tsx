@@ -1,46 +1,48 @@
-import React from "react";
-import {selectGameState} from "../../../reducer/gameViewSlice";
-import GameViewStyles from "../../GameView.styled";
-import {useAppSelector} from "../../../../app/hooks";
-import {GameView} from "../../interfaces/gameView.interfaces";
-
-const {
-  NameStyled,
-} = GameViewStyles;
-
+import React, {ReactElement} from "react";
+import {useGameState} from "../../hooks/useGameState";
 
 export const SCORE_DATA = {
-  player: {
-    message: (name: string) => name.length > 1 ? `Welcome, ${name}` : ''
-  },
   score: {
-    win: (score: number) => score > 0 ? `Won: ${score}` : 'Won: 0',
-    lose: (score: number) => score > 0 ? `Lost: ${score}` : 'Lost: 0',
+    win: {
+      label: 'Won',
+      value: (score: number) => score,
+    },
+    lose: {
+      label: 'Lost',
+      value: (score: number) => score,
+    }
   },
 }
 
-export function Score() {
-  const gameState = useAppSelector(selectGameState);
-
-  const {
-    turn,
-    playerName,
-    score: { won, lost },
-    cardsView: { deck: { cards }}
-  }: GameView = gameState;
+export function Score(): ReactElement<string> {
+  const { cards, score: { won, lost }, turn} = useGameState();
 
   return (
-    <NameStyled>
-      <h3>{SCORE_DATA.player.message(playerName)}</h3>
+    <section className="section has-text-centered-desktop pb-4 pt-4">
       {
         turn > 0 && (
-          <>
-            <h3>{SCORE_DATA.score.win(won)}</h3>
-            <h3>{SCORE_DATA.score.lose(lost)}</h3>
-            <h3>{`Remaining: ${cards.length - (won + lost)}`}</h3>
-          </>
+          <nav className="level">
+            <div className="level-item has-text-centered">
+              <div>
+                <p className="heading">{SCORE_DATA.score.win.label}</p>
+                <p className="title">{SCORE_DATA.score.win.value(won)}</p>
+              </div>
+            </div>
+            <div className="level-item has-text-centered">
+              <div>
+                <p className="heading">{SCORE_DATA.score.lose.label}</p>
+                <p className="title">{SCORE_DATA.score.lose.value(lost)}</p>
+              </div>
+            </div>
+            <div className="level-item has-text-centered">
+              <div>
+                <p className="heading">{`Remaining`}</p>
+                <p className="title">{cards.length - (won + lost)}</p>
+              </div>
+            </div>
+          </nav>
         )
       }
-    </NameStyled>
+    </section>
   )
 }

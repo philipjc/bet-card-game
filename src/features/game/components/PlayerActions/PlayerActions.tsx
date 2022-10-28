@@ -1,13 +1,8 @@
-import React from "react";
-import ButtonsStyles from "../../../../app-styled/Buttons.styled";
-import PlayerActionsStyles from "./PlayerActions.styled";
+import React, {ReactElement} from "react";
 import {BET_OPTIONS} from "../../interfaces/gameView.interfaces";
 import {useAppDispatch} from "../../../../app/hooks";
 import {placeBet} from '../../../reducer/gameViewSlice';
 import {useGameState} from "../../hooks/useGameState";
-
-const { PrimaryButton } = ButtonsStyles;
-const { PlayerActionsStyled } = PlayerActionsStyles;
 
 export const PA_DATA = {
   name: 'PlayerActions',
@@ -18,28 +13,35 @@ export const PA_DATA = {
   }
 };
 
-export function PlayerActions() {
+export function PlayerActions(): ReactElement<string> {
   const dispatch = useAppDispatch();
-  const { LOADING, GAME_OVER } = useGameState();
+  const { LOADING } = useGameState();
 
-  return GAME_OVER ? null : (
-    <PlayerActionsStyled data-testid={PA_DATA.name}>
-      <h4>{PA_DATA.heading}</h4>
+  return (
+    <div className="container has-text-centered" data-testid={PA_DATA.name}>
+
+      <h4 className="subtitle is-4 mb-5 mt-5">
+        {PA_DATA.heading}
+      </h4>
 
       <div>
-        <PrimaryButton
+        <button
+          className="button mr-4"
           onClick={() => dispatch(placeBet(BET_OPTIONS.low))}
           disabled={LOADING}
         >
           {PA_DATA.actions.lower}
-        </PrimaryButton>
-        <PrimaryButton
+        </button>
+
+        <button
+          className="button ml-4"
           onClick={() => dispatch(placeBet(BET_OPTIONS.high))}
           disabled={LOADING}
         >
           {PA_DATA.actions.higher}
-        </PrimaryButton>
+        </button>
+
       </div>
-    </PlayerActionsStyled>
+    </div>
   )
 }

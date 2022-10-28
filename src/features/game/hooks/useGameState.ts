@@ -16,6 +16,7 @@ export interface UseGameState {
   gamesWon: number;
   gamesDraw: number;
   gamesLost: number;
+  turn: number;
   GAME_ACTIVE: boolean;
   GAME_OVER: boolean;
   PLAYER_INITIATED: boolean;
@@ -26,6 +27,7 @@ export interface UseGameState {
   GAME_CONFIG: RequestConfig;
   LOADING: boolean;
   CURRENT_CARD_IMG: string;
+  NO_PLAYER_NAME: boolean;
 }
 
 export function useGameState(): UseGameState {
@@ -39,6 +41,7 @@ export function useGameState(): UseGameState {
     gamesWon,
     gamesDraw,
     gamesLost,
+    turn,
     cardsView: { deck, fetchingCards, nextCard, currentCard },
   }: GameView = gameState;
 
@@ -58,6 +61,7 @@ export function useGameState(): UseGameState {
   const GAME_CONFIG: RequestConfig = { deck_id, numberOfCards };
   const PLACE_BET: Bet = { guess, currentCard: currentCard[0], nextCard: nextCard[0] };
   const CURRENT_CARD_IMG = currentCard[0]?.images.png;
+  const NO_PLAYER_NAME = playerName.length < 1;
 
   return {
     deck,
@@ -72,6 +76,7 @@ export function useGameState(): UseGameState {
     gamesWon,
     gamesDraw,
     gamesLost,
+    turn,
     GAME_ACTIVE,
     GAME_OVER,
     PLAYER_INITIATED,
@@ -82,5 +87,6 @@ export function useGameState(): UseGameState {
     GAME_CONFIG,
     LOADING,
     CURRENT_CARD_IMG,
+    NO_PLAYER_NAME,
   }
 }

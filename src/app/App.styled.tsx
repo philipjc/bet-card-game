@@ -10,20 +10,8 @@ const AppStyled = styled.div`
   margin: 0 auto;
 `;
 
-const AppHeader = styled.h1`
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${props => props.theme.palette.highlight};
-  font-size: 1.5em;
-  border-bottom: .4em solid ${props => props.theme.palette.lowlight};
-`
-
 const AppStyles = {
   AppStyled,
-  AppHeader,
 };
 
 export default AppStyles;

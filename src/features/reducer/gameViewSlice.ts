@@ -16,7 +16,7 @@ async function placeAsyncBet(bet: Bet) {
 
     return setTimeout(() => {
       resolve({...bet, win: result});
-    }, 2000);
+    }, 1000);
   });
 }
 
