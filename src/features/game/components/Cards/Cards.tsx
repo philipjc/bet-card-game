@@ -10,7 +10,7 @@ import {
 
 
 export const CARDS_DATA = {
-  playerGuess: (guess: string) => guess ? `You bet ${guess}ER...` : null,
+  playerGuess: (guess: string) => guess ? `You bet ${guess}ER...?` : null,
   actionButton: (gameActive: boolean) => gameActive ? 'Place bet' : 'Play',
   noGuess: 'Waiting for your guess...',
   card: {
