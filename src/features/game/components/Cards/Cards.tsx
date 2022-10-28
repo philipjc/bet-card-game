@@ -19,7 +19,7 @@ export const CARDS_DATA = {
     height: '314px',
   },
   loader: {
-    loaderColor: '#ecfb77',
+    loaderColor: '#04d1b2',
     loaderWidth: '200',
     loaderHeight: '200',
     aria: 'hearts-loading',
