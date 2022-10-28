@@ -2,8 +2,9 @@ import React from "react";
 import ButtonsStyles from "../../../../app-styled/Buttons.styled";
 import PlayerActionsStyles from "./PlayerActions.styled";
 import {BET_OPTIONS} from "../../interfaces/gameView.interfaces";
-import {useAppDispatch, useAppSelector} from "../../../../app/hooks";
-import {placeBet, selectCardView, selectGameState} from '../../../reducer/gameViewSlice';
+import {useAppDispatch} from "../../../../app/hooks";
+import {placeBet} from '../../../reducer/gameViewSlice';
+import {useGameState} from "../../hooks/useGameState";
 
 const { PrimaryButton } = ButtonsStyles;
 const { PlayerActionsStyled } = PlayerActionsStyles;
@@ -19,14 +20,7 @@ export const PA_DATA = {
 
 export function PlayerActions() {
   const dispatch = useAppDispatch();
-  const gameState = useAppSelector(selectGameState);
-  const cardState = useAppSelector(selectCardView);
-
-  const { bet: { loading }, gameOver } = gameState;
-  const { fetchingCards } = cardState;
-
-  const LOADING = loading || fetchingCards;
-  const GAME_OVER = gameOver;
+  const { LOADING, GAME_OVER } = useGameState();
 
   return GAME_OVER ? null : (
     <PlayerActionsStyled data-testid={PA_DATA.name}>

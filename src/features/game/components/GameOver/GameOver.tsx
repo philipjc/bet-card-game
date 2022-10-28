@@ -1,9 +1,10 @@
 import React from "react";
 import gameOverStyles from "./GameOver.styled";
 import buttonsStyled from "../../../../app-styled/Buttons.styled";
-import {useAppDispatch, useAppSelector} from "../../../../app/hooks";
-import {restart, selectGameState} from "../../../reducer/gameViewSlice";
+import {useAppDispatch} from "../../../../app/hooks";
+import {restart} from "../../../reducer/gameViewSlice";
 import {newGame} from "../../../reducer/gameViewSlice";
+import {useGameState} from "../../hooks/useGameState";
 
 const { GameOverStyled } = gameOverStyles;
 const { PrimaryButton } = buttonsStyled;
@@ -24,9 +25,7 @@ export const GO_DATA = {
 
 export function GameOver() {
   const dispatch = useAppDispatch();
-  const gameState = useAppSelector(selectGameState);
-
-  const { score: { won, lost }, gamesWon, gamesLost, gamesDraw } = gameState;
+  const { score: { won, lost}, gamesLost, gamesWon, gamesDraw } = useGameState();
 
   const GAME_OVER_TITLE = won > lost ? GO_DATA.heading.win : GO_DATA.heading.lose;
   const WON_AMOUNT = GO_DATA.score.win(won);

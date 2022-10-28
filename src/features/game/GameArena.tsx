@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { enterName, selectGameState } from '../reducer/gameViewSlice';
+import React from "react";
+import { useAppDispatch } from '../../app/hooks';
+import { enterName } from '../reducer/gameViewSlice';
 import GameViewStyles from "./GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
-import {GameConfig, GameView} from "./interfaces/gameView.interfaces"
+import {usePlayerEntry} from "./hooks/usePlayerEntry";
+import {useGameState} from "./hooks/useGameState";
 import {Cards} from "./components/Cards/Cards";
-import {GameOver} from "./components/game-over/GameOver";
-import {PlayerActions} from "./components/player-actions/PlayerActions";
-import {Score} from "./components/score/Score";
+import {GameOver} from "./components/GameOver/GameOver";
+import {PlayerActions} from "./components/PlayerActions/PlayerActions";
+import {Score} from "./components/Score/Score";
 
 const {
   GameViewStyled,
@@ -43,20 +44,8 @@ export const GV_DATA = {
 
 export function GameArena() {
   const dispatch = useAppDispatch();
-  const gameState = useAppSelector(selectGameState);
-  const [name, updateName] = useState('');
-  const [numberOfCards, updateNumberOfCards] = useState('10');
-
-  const {
-    gameOver,
-    playerName,
-    initiatePlayer,
-    cardsView: { deck: { cards } }}: GameView = gameState;
-
-  const GAME_OVER: boolean = gameOver;
-  const GAME_ACTIVE: boolean = cards.length > 0;
-  const PLAYER_INITIATED: boolean = initiatePlayer;
-  const GAME_CONFIG: GameConfig = {name, numberOfCards}
+  const { playerName, GAME_OVER, GAME_ACTIVE, PLAYER_INITIATED } = useGameState();
+  const { name, updateName, updateNumberOfCards, GAME_CONFIG } = usePlayerEntry();
 
   return (
     <GameViewStyled data-testid={GV_DATA.name}>
@@ -75,7 +64,7 @@ export function GameArena() {
               data-testid={GV_DATA.tests.input.cards}
               type="number"
               onChange={(e) => {
-              if (Number(e.target.value) > 3) {
+              if (Number(e.target.value) > 3 || Number(e.target.value) < 53) {
                 updateNumberOfCards(e.target.value);
               }}}
             />

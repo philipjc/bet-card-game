@@ -1,10 +1,8 @@
 import React from "react";
 import { Hearts } from 'react-loader-spinner'
-import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
-
+import { useAppDispatch } from '../../../../app/hooks';
+import {useGameState} from "../../hooks/useGameState";
 import {
-  selectGameState,
-  selectCardView,
   placeBetThunk,
   getCardsAsync,
   restart,
@@ -12,7 +10,6 @@ import {
 
 import CardsStyles from "./Cards.styled";
 import ButtonsStyles from "../../../../app-styled/Buttons.styled";
-import {Bet, RequestConfig} from "../../interfaces/gameView.interfaces";
 
 const {
   CardsStyled,
@@ -45,20 +42,10 @@ export const CARDS_DATA = {
 
 export function Cards() {
   const dispatch = useAppDispatch();
-  const gameState = useAppSelector(selectGameState);
-  const cardState = useAppSelector(selectCardView);
-
-  const { bet: { loading, guess }, numberOfCards } = gameState;
-  const { currentCard, nextCard, deck: { cards, deck_id }, fetchingCards } = cardState;
-
-  const GAME_ACTIVE = cards.length > 0;
-  const LOADING = loading || fetchingCards;
-  const PLAYER_GUESS = CARDS_DATA.playerGuess(guess);
-  const SHOW_CARDS = GAME_ACTIVE && !LOADING;
-  const NO_BET = GAME_ACTIVE && guess.length < 1;
-
-  const GAME_CONFIG: RequestConfig = { deck_id, numberOfCards };
-  const PLACE_BET: Bet = { guess, currentCard: currentCard[0], nextCard: nextCard[0] };
+  const {
+    GAME_ACTIVE, PLACE_BET, GAME_CONFIG, NO_BET,
+    LOADING, PLAYER_GUESS, SHOW_CARDS, CURRENT_CARD_IMG,
+  } = useGameState();
 
   return (
     <CardsStyled>
@@ -106,7 +93,7 @@ export function Cards() {
             <img
               width={CARDS_DATA.card.width}
               height={CARDS_DATA.card.height}
-              src={currentCard[0]?.images.png}
+              src={CURRENT_CARD_IMG}
               alt={CARDS_DATA.card.cardAlt}
             />
           </CardStyled>
