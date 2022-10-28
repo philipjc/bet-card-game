@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { enterName, hideNameInput, selectGameState } from '../reducer/gameViewSlice';
+import { enterName, selectGameState } from '../reducer/gameViewSlice';
 import GameViewStyles from "./GameView.styled";
 import ButtonsStyles from '../../app-styled/Buttons.styled';
 
@@ -13,11 +13,9 @@ import {Score} from "./components/score/Score";
 const {
   GameViewStyled,
   NameEntryStyled,
-  InitiateStyled,
 } = GameViewStyles;
 
 const {
-  PrimaryButton,
   SecondaryButton,
 } = ButtonsStyles;
 
@@ -32,7 +30,15 @@ export const GV_DATA = {
   },
   initiate: {
     button: 'Let\'s begin',
-  }
+  },
+  tests: {
+    ui: 'UI',
+    input: {
+      name: 'name-input-test',
+      cards: 'number-input-test',
+      nameButton: 'send-game-config',
+    }
+  },
 }
 
 export function GameArena() {
@@ -55,19 +61,27 @@ export function GameArena() {
   return (
     <GameViewStyled data-testid={GV_DATA.name}>
 
-      <div className="UI">
+      <div className="UI" data-testid={GV_DATA.tests.ui}>
         { playerName.length < 1 &&
           <NameEntryStyled>
             <h2>{GV_DATA.player.heading}</h2>
-            <input onChange={(e) => updateName(e.target.value)} type="text" />
+            <input
+              data-testid={GV_DATA.tests.input.name}
+              type="text"
+              onChange={(e) => updateName(e.target.value)}
+            />
             <h2>{GV_DATA.player.headingTwo}</h2>
-            <input onChange={(e) => {
+            <input
+              data-testid={GV_DATA.tests.input.cards}
+              type="number"
+              onChange={(e) => {
               if (Number(e.target.value) > 3) {
                 updateNumberOfCards(e.target.value);
-              }
-            }
-            } type="number" />
-            <SecondaryButton onClick={(e) => {
+              }}}
+            />
+            <SecondaryButton
+              data-testid={GV_DATA.tests.input.nameButton}
+              onClick={(e) => {
               if (name) {
                 dispatch(enterName(GAME_CONFIG));
                 updateName('');
@@ -75,16 +89,6 @@ export function GameArena() {
               }
             }}>{GV_DATA.gameEnter}</SecondaryButton>
           </NameEntryStyled>
-        }
-
-        { !PLAYER_INITIATED &&
-          playerName.length > 1 && (
-            <InitiateStyled>
-              <PrimaryButton onClick={() => dispatch(hideNameInput())}>
-                {GV_DATA.initiate.button}
-              </PrimaryButton>
-            </InitiateStyled>
-          )
         }
 
         {

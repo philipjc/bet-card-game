@@ -16,7 +16,7 @@ async function placeAsyncBet(bet: Bet) {
 
     return setTimeout(() => {
       resolve({...bet, win: result});
-    }, 1000);
+    }, 2000);
   });
 }
 
@@ -46,9 +46,6 @@ export const gameViewSlice = createSlice({
       state.initiatePlayer = true;
       state.playerName = payload.name;
       state.numberOfCards = payload.numberOfCards;
-    },
-    hideNameInput: (state: GameView) => {
-      state.initiatePlayer = true;
     },
     placeBet: (state: GameView, action: PayloadAction<string>) => {
       const { payload } = action;
@@ -136,7 +133,7 @@ export const selectCardView = (state: RootState) => state.game.cardsView;
 
 // Action exports
 // ==============
-export const { newGame, enterName, hideNameInput, placeBet, restart } = gameViewSlice.actions;
+export const { newGame, enterName, placeBet, restart } = gameViewSlice.actions;
 
 // Reducer export
 export default gameViewSlice.reducer;
