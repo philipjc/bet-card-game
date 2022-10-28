@@ -55,6 +55,9 @@ export interface GameView {
   score: Score;
   bet: BetView;
   gameOver: boolean;
+  gamesWon: number;
+  gamesLost: number;
+  gamesDraw: number;
 }
 
 interface Images {

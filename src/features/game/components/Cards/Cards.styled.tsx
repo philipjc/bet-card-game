@@ -11,7 +11,7 @@ const CardActionsStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: ${props => props.theme.spacing.medium};
+  margin-bottom: ${props => props.theme.spacing.sMedium};
   
   button {
     margin-bottom: 1em;

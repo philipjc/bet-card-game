@@ -10,7 +10,8 @@ export const mainTheme = {
   spacing: {
     xSmall: '.2em',
     small: '.5em',
-    medium: '1em',
+    sMedium: '.8em',
+    medium: '1.5em',
     large: '2em',
     xLarge: '2.5em'
   }

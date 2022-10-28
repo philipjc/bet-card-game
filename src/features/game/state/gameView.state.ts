@@ -31,4 +31,7 @@ export const initialState: GameView = {
   score: scoreState,
   bet: betViewState,
   gameOver: false,
+  gamesWon: 0,
+  gamesLost: 0,
+  gamesDraw: 0,
 }

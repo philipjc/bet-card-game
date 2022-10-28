@@ -74,6 +74,9 @@ export const gameViewSlice = createSlice({
       state.score.won = 0;
       state.score.lost = 0;
       state.bet.guess = '';
+      state.gamesWon = 0;
+      state.gamesLost = 0;
+      state.gamesDraw = 0;
     }
   },
 
@@ -113,6 +116,11 @@ export const gameViewSlice = createSlice({
           state.score.lost = state.score.lost += INT_ONE;
         }
         state.gameOver = state.turn === Number(state.numberOfCards);
+        if (state.gameOver) {
+          state.gamesWon = state.score.won > state.score.lost ? state.gamesWon += 1 : state.gamesWon;
+          state.gamesLost = state.score.won < state.score.lost ? state.gamesLost += 1 : state.gamesLost;
+          state.gamesDraw = state.score.won === state.score.lost ? state.gamesDraw += 1 : state.gamesDraw;
+        }
         state.bet.loading = false;
       })
       .addCase(placeBetThunk.rejected, (state: GameView) => {

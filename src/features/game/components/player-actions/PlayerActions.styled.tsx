@@ -7,7 +7,7 @@ const PlayerActionsStyled = styled.div`
   margin-top: ${props => props.theme.spacing.medium};
   
   h4 {
-    margin-bottom: ${props => props.theme.spacing.medium};
+    margin-bottom: ${props => props.theme.spacing.sMedium};
   }
   
   button {
