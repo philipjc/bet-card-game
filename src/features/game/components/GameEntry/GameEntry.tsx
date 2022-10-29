@@ -65,7 +65,7 @@ export function GameEntry(): ReactElement<string> {
                     }
                   }}
                   className="button is-info">
-                  Enter
+                  Play
                 </button>
               </p>
             </div>
