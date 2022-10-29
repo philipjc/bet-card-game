@@ -37,6 +37,7 @@ export function Cards() {
     <>
       <section className="section is-medium is-flex is-flex-direction-column is-paddingless">
         <div className="container has-text-centered">
+          {!GAME_ACTIVE && <h2 className="title is-3">To begin push play</h2>}
           <button
             className="button mr-2"
             onClick={() =>
