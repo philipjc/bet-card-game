@@ -19,7 +19,6 @@ export function PlayerActions(): ReactElement<string> {
 
   return (
     <div className="container has-text-centered" data-testid={PA_DATA.name}>
-
       <h4 className="subtitle is-4 mb-5 mt-5">
         {PA_DATA.heading}
       </h4>
@@ -40,7 +39,6 @@ export function PlayerActions(): ReactElement<string> {
         >
           {PA_DATA.actions.higher}
         </button>
-
       </div>
     </div>
   )

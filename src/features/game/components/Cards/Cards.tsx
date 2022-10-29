@@ -71,7 +71,16 @@ export function Cards() {
 
             {
               LOADING && (
-                <div>
+                <div
+                  className="card"
+                  style={{
+                    width: CARDS_DATA.card.width,
+                    height: CARDS_DATA.card.height,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <Hearts
                     height={CARDS_DATA.loader.loaderHeight}
                     width={CARDS_DATA.loader.loaderWidth}
