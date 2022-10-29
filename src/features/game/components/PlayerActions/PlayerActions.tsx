@@ -3,6 +3,7 @@ import {BET_OPTIONS} from "../../interfaces/gameView.interfaces";
 import {useAppDispatch} from "../../../../app/hooks";
 import {placeBet} from '../../../reducer/gameViewSlice';
 import {useGameState} from "../../hooks/useGameState";
+import {explode} from '../../../../app/animations/explode';
 
 export const PA_DATA = {
   name: 'PlayerActions',
@@ -25,7 +26,8 @@ export function PlayerActions(): ReactElement<string> {
 
       <div>
         <button
-          className="button mr-4"
+          className="button mr-4 js-explosion"
+          onMouseOver={(e) => explode(e.pageX, e.pageY)}
           onClick={() => dispatch(placeBet(BET_OPTIONS.low))}
           disabled={LOADING}
         >
@@ -33,7 +35,8 @@ export function PlayerActions(): ReactElement<string> {
         </button>
 
         <button
-          className="button ml-4"
+          className="button ml-4 js-explosion"
+          onMouseOver={(e) => explode(e.pageX, e.pageY)}
           onClick={() => dispatch(placeBet(BET_OPTIONS.high))}
           disabled={LOADING}
         >

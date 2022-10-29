@@ -7,6 +7,7 @@ import {
   getCardsAsync,
   restart,
 } from "../../../reducer/gameViewSlice";
+import {explode} from "../../../../app/animations/explode";
 
 
 export const CARDS_DATA = {
@@ -44,6 +45,7 @@ export function Cards() {
               GAME_ACTIVE
                 ? dispatch(placeBetThunk(PLACE_BET))
                 : dispatch(getCardsAsync(GAME_CONFIG))}
+            onMouseOver={(e) => explode(e.pageX, e.pageY)}
             disabled={LOADING || NO_BET}
           >
             {CARDS_DATA.actionButton(GAME_ACTIVE)}
@@ -72,7 +74,7 @@ export function Cards() {
             {
               LOADING && (
                 <div
-                  className="card"
+                  className="card tilt-n-move-shake"
                   style={{
                     width: CARDS_DATA.card.width,
                     height: CARDS_DATA.card.height,

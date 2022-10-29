@@ -50,3 +50,15 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+@keyframes tilt-n-move-shaking {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(5px, 5px) rotate(5deg); }
+  50% { transform: translate(0, 0) rotate(0deg); }
+  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+div.tilt-n-move-shake {
+  animation: tilt-n-move-shaking .6s infinite;
+}
