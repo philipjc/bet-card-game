@@ -9,7 +9,6 @@ import {
 } from "../../../reducer/gameViewSlice";
 import {explode} from "../../../../app/animations/explode";
 
-
 export const CARDS_DATA = {
   playerGuess: (guess: string) => guess ? `You bet ${guess}ER...?` : null,
   actionButton: (gameActive: boolean) => gameActive ? 'Place bet' : 'Play',

@@ -23,8 +23,6 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -42,10 +40,7 @@ blockquote, q {
   quotes: none;
 }
 blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -61,4 +56,32 @@ table {
 
 div.tilt-n-move-shake {
   animation: tilt-n-move-shaking .6s infinite;
+}
+
+/* Confetti */
+.canvas {
+  background-color: #f0f0f0;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.controls {
+  bottom: 15%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  left: 50%;
+  margin-left: -50px;
+  position: fixed;
+}
+
+.controls button {
+  height: 40px;
+  width: 100px;
+  pointer-events: auto;
 }

@@ -3,6 +3,7 @@ import {useAppDispatch} from "../../../../app/hooks";
 import {restart} from "../../../reducer/gameViewSlice";
 import {newGame} from "../../../reducer/gameViewSlice";
 import {useGameState} from "../../hooks/useGameState";
+import {ExplodeAnimation} from "../../../../app/animations/ExplodeAnimation";
 
 export const GO_DATA = {
   heading: {
@@ -30,10 +31,16 @@ export function GameOver() {
   const GAMES_DRAW = GO_DATA.gamesDraw(gamesDraw);
 
   return (
-    <div className="section is-primary has-text-centered">
-
-
-      <div className="container is-bordered">
+    <div className="section is-primary has-text-centered pb-0">
+      <ExplodeAnimation colors={['blue', 'red', 'green']} />
+      <div
+        className="container"
+        style={{
+          boxShadow: 'rgb(204 204 204) 0px 0px 6px 1px',
+          padding: '1em',
+          maxWidth: '16em',
+          backgroundColor: '#F8F0E3',
+        }}>
         <h2 className="subtitle is-underlined">{GAME_OVER_TITLE}</h2>
 
         <h3 className="subtitle">This round</h3>
@@ -47,13 +54,15 @@ export function GameOver() {
       </div>
 
       <div className="container is-primary has-text-centered mt-6">
-        <button className="button mr-2" onClick={() => dispatch(newGame())}>
+        <button
+          className="button mr-2"
+          onClick={() => dispatch(newGame())}>
           New game?
         </button>
 
-        <button className="button ml-2"
-                onClick={() => dispatch(restart())}
-        >
+        <button
+          className="button ml-2"
+          onClick={() => dispatch(restart())}>
           Restart
         </button>
       </div>
