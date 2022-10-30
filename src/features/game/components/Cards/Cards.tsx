@@ -37,7 +37,21 @@ export function Cards() {
     <>
       <section className="section is-medium is-flex is-flex-direction-column is-paddingless">
         <div className="container has-text-centered">
-          {!GAME_ACTIVE && <h2 className="title is-3">To begin push play</h2>}
+          {!GAME_ACTIVE && !LOADING && <h2 className="title is-3">To begin push play</h2>}
+          {
+            !GAME_ACTIVE && !LOADING && (
+              <div className="content intro mt-6 mb-6">
+                <h3>Welcome to the world of card guessing!</h3>
+                <p>
+                  Where mystery and intrigue go hand in hand. <strong>Are you tough enough. </strong>
+                  Will you take on the challenge and come out triumphant? Or will you slip into the dark world
+                  of regret?
+                 </p>
+                <p>Picking the wrong guess could mean the difference between internet sensation, or searching for the game to conquer.</p>
+                <p>Dare you enter....</p>
+              </div>
+            )
+          }
           <button
             className="button mr-2"
             onClick={() =>
