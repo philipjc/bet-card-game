@@ -39,7 +39,6 @@ export function GameOver() {
           boxShadow: 'rgb(204 204 204) 0px 0px 6px 1px',
           padding: '1em',
           maxWidth: '16em',
-          backgroundColor: '#F8F0E3',
         }}>
         <h2 className="subtitle is-underlined">{GAME_OVER_TITLE}</h2>
 
