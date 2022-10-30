@@ -25,7 +25,12 @@ export function ExplodeAnimation(args: Args) {
   return (
     <>
       <div className="controls">
-        <button type="button" onClick={setFire.bind(null, Math.random())}>Celebrate</button>
+        <button
+          type="button"
+          className="button"
+          onClick={setFire.bind(null, Math.random())}>
+          Celebrate
+        </button>
       </div>
       <ReactCanvasConfetti {...props} fire={fire} colors={colors} className="canvas" />
     </>

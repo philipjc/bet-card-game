@@ -32,7 +32,7 @@ export function GameOver() {
 
   return (
     <div className="section is-primary has-text-centered pb-0">
-      <ExplodeAnimation colors={['blue', 'red', 'green']} />
+      <ExplodeAnimation colors={['blue', 'red', 'green', 'purple', 'yellow', 'pink']} />
       <div
         className="container"
         style={{

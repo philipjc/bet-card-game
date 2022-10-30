@@ -22,7 +22,7 @@ export interface IProps extends Options, GlobalOptions {
 }
 
 export default class ReactCanvasConfetti extends React.Component<IProps> {
-  private refCanvas: RefObject<HTMLCanvasElement>;
+  private readonly refCanvas: RefObject<HTMLCanvasElement>;
 
   private confetti: CreateTypes | null;
 
