@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {BET_OPTIONS} from "../../interfaces/gameView.interfaces";
 import {useAppDispatch} from "../../../../app/hooks";
-import {placeBet} from '../../../reducer/gameViewSlice';
+import {placeBet} from '../../reducer/gameViewSlice';
 import {useGameState} from "../../hooks/useGameState";
 import {explode} from '../../../../app/animations/explode';
 

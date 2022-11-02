@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {enterName} from "../../../reducer/gameViewSlice";
+import {enterName} from "../../reducer/gameViewSlice";
 import {useAppDispatch} from "../../../../app/hooks";
 import {usePlayerEntry} from "../../hooks/usePlayerEntry";
 

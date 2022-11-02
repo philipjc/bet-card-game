@@ -1,5 +1,5 @@
-import {Bet} from "../game/interfaces/gameView.interfaces";
-import {BET_OPTIONS} from "../game/interfaces/gameView.interfaces";
+import {Bet} from "../interfaces/gameView.interfaces";
+import {BET_OPTIONS} from "../interfaces/gameView.interfaces";
 
 const ACE = 'ACE';
 const KING = 'KING';

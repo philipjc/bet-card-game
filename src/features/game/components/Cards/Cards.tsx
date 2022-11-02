@@ -6,7 +6,7 @@ import {
   placeBetThunk,
   getCardsAsync,
   restart,
-} from "../../../reducer/gameViewSlice";
+} from "../../reducer/gameViewSlice";
 import {explode} from "../../../../app/animations/explode";
 
 export const CARDS_DATA = {

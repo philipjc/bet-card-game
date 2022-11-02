@@ -1,7 +1,7 @@
 import React from "react";
 import {useAppDispatch} from "../../../../app/hooks";
-import {restart} from "../../../reducer/gameViewSlice";
-import {newGame} from "../../../reducer/gameViewSlice";
+import {restart} from "../../reducer/gameViewSlice";
+import {newGame} from "../../reducer/gameViewSlice";
 import {useGameState} from "../../hooks/useGameState";
 import {ExplodeAnimation} from "../../../../app/animations/ExplodeAnimation";
 

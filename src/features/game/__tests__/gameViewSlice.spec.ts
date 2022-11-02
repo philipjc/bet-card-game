@@ -1,7 +1,7 @@
 import gameViewReducer, {
   enterName, newGame,
   placeBet, restart,
-} from '../../reducer/gameViewSlice';
+} from '../reducer/gameViewSlice';
 
 import {GameView} from "../interfaces/gameView.interfaces";
 

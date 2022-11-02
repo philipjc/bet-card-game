@@ -1,6 +1,6 @@
 import {Bet, Card, GameView, RequestConfig, Score} from "../interfaces/gameView.interfaces";
 import {useAppSelector} from "../../../app/hooks";
-import {selectGameState} from "../../reducer/gameViewSlice";
+import {selectGameState} from "../reducer/gameViewSlice";
 import {CARDS_DATA} from "../components/Cards/Cards";
 
 export interface UseGameState {

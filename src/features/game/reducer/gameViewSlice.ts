@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState} from '../../app/store';
-import {initialState} from '../game/state/gameView.state';
-import {fetchCards} from '../game/api/cardsAPI';
-import {Bet, RequestConfig, GameView, GameConfig} from "../game/interfaces/gameView.interfaces";
+import {RootState} from '../../../app/store';
+import {initialState} from '../state/gameView.state';
+import {fetchCards} from '../api/cardsAPI';
+import {Bet, RequestConfig, GameView, GameConfig} from "../interfaces/gameView.interfaces";
 import {bettingResult} from "./helpers";
 
 
