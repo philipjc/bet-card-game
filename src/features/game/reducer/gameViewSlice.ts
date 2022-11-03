@@ -43,9 +43,10 @@ export const gameViewSlice = createSlice({
   reducers: {
     enterName: (state: GameView, action: PayloadAction<GameConfig>) => {
       const { payload } = action;
+      const numberOfCards = Number(payload.numberOfCards);
       state.initiatePlayer = true;
       state.playerName = payload.name;
-      state.numberOfCards = payload.numberOfCards;
+      state.numberOfCards = numberOfCards > 52 ? '52' : numberOfCards < 3 ? '3' : payload.numberOfCards;
     },
     placeBet: (state: GameView, action: PayloadAction<string>) => {
       const { payload } = action;
@@ -58,6 +59,7 @@ export const gameViewSlice = createSlice({
       state.score.won = 0;
       state.score.lost = 0;
       state.bet.guess = '';
+      getCardsAsync({ deck_id: state.cardsView.deck.deck_id, numberOfCards: state.numberOfCards });
     },
     restart: (state: GameView) => {
       state.playerName = '';
