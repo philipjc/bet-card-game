@@ -1,9 +1,8 @@
 import React from "react";
 import {useAppDispatch} from "../../../../app/hooks";
-import {restart} from "../../reducer/gameViewSlice";
-import {newGame} from "../../reducer/gameViewSlice";
 import {useGameState} from "../../hooks/useGameState";
 import {ExplodeAnimation} from "../../../../app/animations/ExplodeAnimation";
+import {startNewGameThunk, restartGameThunk} from "../../reducer/gameViewSlice";
 
 export const GO_DATA = {
   heading: {
@@ -21,7 +20,7 @@ export const GO_DATA = {
 
 export function GameOver() {
   const dispatch = useAppDispatch();
-  const { score: { won, lost}, gamesLost, gamesWon, gamesDraw } = useGameState();
+  const { score: { won, lost}, gamesLost, gamesWon, gamesDraw, numberOfCards } = useGameState();
 
   const GAME_OVER_TITLE = won > lost ? GO_DATA.heading.win : GO_DATA.heading.lose;
   const WON_AMOUNT = GO_DATA.score.win(won);
@@ -55,13 +54,13 @@ export function GameOver() {
       <div className="container is-primary has-text-centered mt-6">
         <button
           className="button mr-2"
-          onClick={() => dispatch(newGame())}>
+          onClick={() => dispatch(startNewGameThunk({deck_id: '', numberOfCards}))}>
           New game?
         </button>
 
         <button
           className="button ml-2"
-          onClick={() => dispatch(restart())}>
+          onClick={() => dispatch(restartGameThunk())}>
           Restart
         </button>
       </div>

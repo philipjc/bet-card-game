@@ -60,8 +60,6 @@ export function GameEntry(): ReactElement<string> {
                   onClick={(e) => {
                     if (name) {
                       dispatch(enterName(GAME_CONFIG));
-                      updateName('');
-                      updateNumberOfCards('');
                     }
                   }}
                   className="button is-info">

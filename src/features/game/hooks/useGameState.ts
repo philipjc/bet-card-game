@@ -28,6 +28,7 @@ export interface UseGameState {
   LOADING: boolean;
   CURRENT_CARD_IMG: string;
   NO_PLAYER_NAME: boolean;
+  numberOfCards: string;
 }
 
 export function useGameState(): UseGameState {
@@ -88,5 +89,6 @@ export function useGameState(): UseGameState {
     LOADING,
     CURRENT_CARD_IMG,
     NO_PLAYER_NAME,
+    numberOfCards,
   }
 }

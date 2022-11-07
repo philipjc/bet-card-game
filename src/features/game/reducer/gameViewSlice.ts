@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState} from '../../../app/store';
+import {RootState, AppThunk} from '../../../app/store';
 import {initialState} from '../state/gameView.state';
 import {fetchCards} from '../api/cardsAPI';
 import {Bet, RequestConfig, GameView, GameConfig} from "../interfaces/gameView.interfaces";
@@ -59,7 +59,6 @@ export const gameViewSlice = createSlice({
       state.score.won = 0;
       state.score.lost = 0;
       state.bet.guess = '';
-      getCardsAsync({ deck_id: state.cardsView.deck.deck_id, numberOfCards: state.numberOfCards });
     },
     restart: (state: GameView) => {
       state.playerName = '';
@@ -76,6 +75,9 @@ export const gameViewSlice = createSlice({
       state.gamesWon = 0;
       state.gamesLost = 0;
       state.gamesDraw = 0;
+      state.cardsView.deck.deck_id = '';
+      state.cardsView.deck.remaining = 0;
+      state.cardsView.deck.success = false;
     }
   },
 
@@ -136,6 +138,20 @@ export const selectCardView = (state: RootState) => state.game.cardsView;
 // Action exports
 // ==============
 export const { newGame, enterName, placeBet, restart } = gameViewSlice.actions;
+
+// Thunks
+export const startNewGameThunk =
+  (config: RequestConfig): AppThunk =>
+  (dispatch, getState) => {
+    dispatch(newGame())
+    return dispatch(getCardsAsync(config))
+  };
+
+export const restartGameThunk =
+  (): AppThunk =>
+    (dispatch, getState) => {
+      return dispatch(restart())
+    };
 
 // Reducer export
 export default gameViewSlice.reducer;
